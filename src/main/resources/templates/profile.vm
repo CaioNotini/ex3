@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/public/assets/css/style.css">
+            <link rel="stylesheet" href="/public/assets/css/cabecalho.css">
+    <title>Perfil</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<header>
+    <nav>
+      <a href="/index"><img class="logo" src="" alt="logo"></a>
+      <div class="mobile-menu">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+  
+  
+      </div>
+      <ul class="nav-list">
+        <li><a href="">Monte sua Dieta</a></li>
+        <li><a href="">Compre Conosco</a></li>
+        <li class="P-mobile"><a href="">Perfil</a></li>
+      </ul>
+     
+      <a href="">
+        <div class="profile-icon">
+        <i class="fas fa-user"></i>
+        <span class="profile-text">Perfil</span>
+      </div>
+      </a>
+    
+    </nav>
+  </header>
+
+<body>
+    <!-- Perfil do usuário -->
+    <div class="flex items-center justify-center">
+        <div class="profile-container border-2 border-blue-400 w-50 rounded-xl p-10 m-10 shadow-2xl">
+            <div class="profile-info">
+                <h1 class="text-center text-2xl mb-3">Informações do Usuário:</h1>
+                <p class ="p-2"><strong>Nome:</strong> $user.getNome()</p>
+                <p class ="p-2"><strong>Email:</strong> $user.getEmail()</p>
+                #if($calorias && $calorias.getCalorias() > 0)
+                    <p class ="p-2"><strong>Calorias:</strong> $calorias.getCalorias()</p>
+                #else
+                    <p class ="p-2">Calorias não encontradas.</p>
+                #end
+                
+                <p class ="p-2"><strong>Outras Informações:</strong> Outros detalhes sobre o usuário</p>
+                
+            </div>
+            <a href="/logout"
+                        class="flex justify-center bg-blue-400 m-4 p-2 rounded-lg font-semibold text-black hover:text-white hover:bg-blue-200 transition duration-300 ease-in-out">Sair</a> 
+        </div>
+    </div>
+</body>
+
+<style> 
+/* Cabeçlho*/
+  
+* {
+	margin: 0;
+	padding: 0;
+  }
+  
+  a {
+	color: black !important;
+	text-decoration: none !important;
+	transition: 0.3s !important;
+  }
+  
+  a:hover {
+	opacity: 0.7;
+	color: #23232e;
+  text-decoration: none;
+  }
+ 
+
+
+  .logo {
+	margin-right:  10px;
+	width: 34%;
+	float:left;
+  }
+  
+  .profile-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5px;
+  }
+  
+  .profile-text {
+    margin-top: 1px;
+    font-size: 9px;
+    font-weight: bold;
+    text-align: center;
+  }
+  
+  .P-mobile {
+    display: none;
+  }
+
+  nav {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	font-family: system-ui, -apple-system, Helvetica, Arial, sans-serif;
+	background: #4AA2F4;
+	height: 12vh;
+  }
+  
+ 
+  
+  .nav-list {
+	list-style: none;
+	display: flex;
+	font-weight: bold;
+  text-align: center ;
+  margin-top: 10px;
+  margin-right: 200px !important;
+
+  }
+  
+  .nav-list li {
+	letter-spacing: 3px;
+	margin-left: 32px;
+  }
+  
+  .mobile-menu {
+	display: none;
+	cursor: pointer;
+  }
+  
+  .mobile-menu div {
+	width: 32px;
+	height: 2px;
+	background: black;
+	margin: 8px;
+	transition: 0.3s;
+  }
+
+
+  @media (max-width: 999px) {
+   
+    .nav-list {
+      height: 100% !important;
+      z-index: 9999 !important;
+      border-bottom-left-radius: 20px;
+      width: 150%;
+    }
+   
+   .square {
+   margin-top: 25vh;
+    height: 80vh;
+   }
+
+    body {
+      overflow-x: hidden;
+    }
+    
+    .profile-icon{
+      display: none;
+    }
+  
+    .P-mobile {
+      display: flex;
+    }
+    
+    .mobile-menu {
+        margin-right: 100px;
+        width: 30%;
+    }
+
+    .nav-list {
+      position: absolute;
+      margin-top: 20px;
+      margin-right: 0px;
+      margin-left: 0px ; /* Aumente esse valor para mover mais para a direita */
+      top: 8vh;
+      right: -200px !important;
+      width: 60vw;
+      height: 92vh;
+      background: #4AA2F4;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      transform: translateX(160%); /* Aumente esse valor para mover mais para a direita */
+      transition: transform 0.3s ease-in;
+    }
+    
+    .nav-list li {
+      margin-left: 0;
+      opacity: 0;
+    }
+    
+    .mobile-menu {
+      display: block;
+      margin-left: 400px ;
+    }
+    
+    
+  
+  }
+    
+    .nav-list.active {
+    transform: translateX(0);
+    }
+    
+    @keyframes navLinkFade {
+    from {
+      opacity: 0;
+      transform: translateX(50px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    }
+    
+    .mobile-menu.active .line1 {
+    transform: rotate(-45deg) translate(-8px, 8px);
+    }
+    
+    .mobile-menu.active .line2 {
+    opacity: 0;
+    }
+    
+    .mobile-menu.active .line3 {
+    transform: rotate(45deg) translate(-5px, -7px);
+    }
+  
+    /* fim cabeçalho*/
+</style>
+      <script src="assets/js/script.js"></script>
+
+</html>
+

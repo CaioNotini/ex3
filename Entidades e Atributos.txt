@@ -1,0 +1,112 @@
+Entidades e Atributos
+
+
+Usuário -
+
+ID_Usuario (PK): Identificador único do usuário.
+Nome: Nome do usuário.
+Email: Email do usuário.
+Senha: Senha do usuário.
+
+
+PerfilUsuario -
+
+ID_Usuario (PK, FK): Chave primária e estrangeira vinculada ao ID do usuário.
+Sexo: Sexo do usuário.
+Idade: Idade do usuário
+Altura: Altura do usuário.
+Peso: Peso do usuário.
+NivelFitness: Nível de fitness do usuário.
+
+
+Calorias -
+
+ID_Usuário (PK, FK):  Chave primária e estrangeira vinculada ao ID do usuário.
+Caloriasdiarias: calorias que o usuario deve consumir no dia.
+
+
+Dieta -
+
+ID_Dieta (PK): Identificador único da dieta.
+ID_Usuario (FK): Chave estrangeira vinculada ao ID do usuário.
+TipoAlimentacao: Tipo de alimentação da dieta (ex: Vegano).
+
+
+Receita -
+
+ID_Receita (PK): Identificador único da receita.
+Nome: Nome da receita.
+Video: Codigo unico do video de preparo da receita.
+Descricao: Descrição da receita.
+Tempo: Tempo de preparo da receita.
+Tipo: Que tipo de refeição é a receita (ex: almoço)
+
+
+Ingrediente -
+
+ID_Ingrediente (PK): Identificador único do ingrediente.
+Nome: Nome do ingrediente.
+
+
+InformacaoNutricional -
+
+ID_Ingrediente (PK, FK): Chave primária e estrangeira vinculada ao ID do ingrediente.
+Calorias: Quantidade de calorias.
+Proteinas: Quantidade de proteínas.
+Carboidratos: Quantidade de carboidratos.
+Gorduras: Quantidade de gorduras.
+
+
+ReceitaIngrediente -
+
+ID_Receita (FK): Chave estrangeira vinculada ao ID da receita.
+ID_Ingrediente (FK): Chave estrangeira vinculada ao ID do ingrediente.
+Quantidade: Quantidade do ingrediente na receita.
+
+
+DietaReceita -
+
+ID_Dieta (FK): Chave estrangeira vinculada ao ID da dieta.
+ID_Receita (FK): Chave estrangeira vinculada ao ID da receita.
+
+
+Avaliacao -
+
+ID_Avaliacao (PK): Identificador único da avaliação.
+ID_Usuario (FK): Chave estrangeira vinculada ao ID do usuário.
+ID_Receita (FK): Chave estrangeira vinculada ao ID da receita.
+Nota: Nota dada pelo usuário à receita.
+
+
+Carrinho
+
+ID_Usuario (Pk, FK): Chave primária e estrangeira que representa o carrinho do usuário
+
+
+ItemCarrinho
+
+ID_ItemCarrinho (PK): Identificador único de cada item no carrinho.
+ID_Carrinho (FK): Chave estrangeira vinculada ao ID do carrinho. Isso associa o item a um carrinho específico.
+ID_Ingrediente (FK): Chave estrangeira vinculada ao ID do ingrediente. Identifica qual ingrediente está sendo adicionado ao carrinho.
+Quantidade: Quantidade do ingrediente adicionado ao carrinho.
+
+
+Relacionamentos:
+Usuário tem um PerfilUsuario.
+Usuário pode ter várias Dietas.
+Dieta pode incluir várias Receitas (via DietaReceita).
+Receita pode conter vários Ingredientes (via ReceitaIngrediente).
+Ingrediente tem uma InformacaoNutricional.
+Usuário pode fazer várias Avaliacoes sobre Receitas.
+Usuário pode adicionar diversos ingredientes ao carrinho.
+Um ingrediente pode estar em diferentes carrinhos de diferentes usuarios.
+Cada usuário só possui um carrinho
+
+
+Restrições:
+Um usuário só pode ter um perfil.
+Uma dieta é exclusivamente criada para um usuário mas pode compartilhar receitas com outras dietas.
+Receitas podem ser avaliadas por múltiplos usuários.
+Informações nutricionais são únicas para cada ingrediente.
+Uma receita pode ser parte de várias dietas diferentes.
+Ingredientes podem aparecer em múltiplas receitas, mas a quantidade específica de cada ingrediente é definida pela relação entre a receita e o ingrediente

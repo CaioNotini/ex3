@@ -1,0 +1,8 @@
+Integração no Site de Criação de Dieta
+Identificação de Ingredientes: Os usuários podem fazer upload de fotos de suas receitas favoritas,
+ e a API de Visão Computacional pode ser usada para identificar os ingredientes presentes na imagem. Com o Custom Vision, 
+ você pode ajustar o reconhecimento para ser mais específico às necessidades do seu público-alvo.
+
+Lista de Compras: Uma vez identificados os ingredientes, você pode automaticamente adicionar esses itens a uma lista de compras
+ ou um carrinho virtual dentro do seu site. Isso facilita para os usuários verem o que precisam comprar para preparar a receita.
+

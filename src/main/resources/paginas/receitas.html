@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/cabecalho.css">
+    <title>BH Saúde</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+    
+
+    <!------ FontAwesome ------->
+    <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic" rel="stylesheet" />
+    
+  
+</head>
+
+<header>
+    <nav>
+      <a href="/index"><img class="logo" src="" alt="logo"></a>
+      <div class="mobile-menu">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+  
+  
+      </div>
+      <ul class="nav-list">
+        <li><a href="">Monte sua Dieta</a></li>
+        <li><a href="/mercado">Compre Conosco</a></li>
+        <li class="P-mobile"><a href="">Perfil</a></li>
+      </ul>
+     
+      <a href="/profile">
+        <div class="profile-icon">
+        <i class="fas fa-user"></i>
+        <span class="profile-text">Perfil</span>
+      </div>
+      </a>
+    
+    </nav>
+  </header>
+  <body>
+    <div class="cabeca">
+      <div class="texto">
+        <p style="text-decoration: none; color: black; font-size: x-small; margin-bottom: 2px;"><a href="/index" style="text-decoration: none;">BH Súde </a><a style="text-decoration: none;" href="/sobremesas">> Sobremesas</a>  <b> > Brownie sem Glúten</b></p>
+        <h1>Brownie Sem Glúten</h1>
+     </div>
+     </div>
+   
+          <div class="i">
+      <div class="rating">
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <span class="star">&#9733;</span>
+        <p> <b>5</b>/5</p><p style="font-size: x-small;">(20) avaliações</p>
+        <div class="avalie">
+          <i class="far fa-star"></i>
+          <p style="font-size: small;"><b>Avalie essa receita</b></p>
+        </div>
+      </div>
+      </div>
+
+      <div class="video">
+        <iframe class="video" width="750" height="550" src="https://www.youtube.com/embed/DNhCuNwR-aM" frameborder="0" allow="accelerometer; autoplay; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in"></iframe>
+      </div>
+      <div class="info">
+       <div class="info-text">
+        <div class="item"> 
+             <p>35 min</p> 
+        </div>
+        <div class="item">
+             <i class="far fa-clock" style="margin-top: 6px; margin-left: 5px;"></i>
+               <p>Baixo</p> 
+        </div>
+        <div class="item">
+              <i class="fas fa-money-bill" style="margin-left: 4px; margin-top: 6px;"></i>
+                <p>Fácil</p>
+        </div>
+        <i class="fas fa-utensils" style="margin-top: 0px; margin-left: 5px;"></i>
+
+        </div>
+      </div>
+      <div class="preparo">
+        <h3>Modo de preparo:</h3>
+      </div>
+  </body>
+
+
+  <style>
+    .texto{
+text-align: center; 
+}
+
+.cabeca{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 300px;
+  margin-right: 300px;
+  height: 100px;
+}
+
+.i {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+}
+
+.rating {
+  display: flex; 
+  align-items: center; 
+  flex-wrap: wrap; 
+  margin-top: 0px;
+}
+
+.rating p{
+  margin-left: 7px;
+}
+
+.star {
+  font-size: 24px;
+  color: gray;
+}
+
+.star, .far {
+  margin-top: -15px;
+}
+
+.rating .star:nth-child(-n+5) {
+  color: gold;
+} 
+
+.avalie {
+  margin-top: -15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-left: 40px;
+  width: 170px;
+  height: 30px;
+  background-color: #4AA2F4;
+  color: white;
+  border-radius:20px ;
+}
+
+.avalie p{
+  margin: 0;
+}
+
+.avalie .fa-star{
+  margin: 0;
+}
+
+/* video */
+
+.video{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+ border-radius: 8px;
+}
+
+/* Info */
+
+.info{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  height: 50px;
+  background-color: aliceblue;
+  margin-left: 385px;
+  margin-right: 385px;
+  border-style: solid;
+  border-width: 1.5px;
+  border-color: #4AA2F4;
+}
+
+.info-text{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+ 
+}
+
+.item p{
+  margin: 0;
+
+}
+
+.item .far, .fas{
+  margin: 0;;
+}
+
+.item{
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+/* preparo */
+
+.preparo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+  </style>
+  </html>
