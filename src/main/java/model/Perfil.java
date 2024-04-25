@@ -1,14 +1,15 @@
 package model;
+import java.time.*;
 
 public class Perfil {
     private int idUsuario;
-    private int idade;
+    private LocalDate idade;
     private String sexo;
     private int altura;
     private int nivelAtividade;
     private int peso;
 
-    public Perfil(int idUsuario, int idade, String sexo, int altura, int peso, int nivelAtividade) {
+    public Perfil(int idUsuario, LocalDate idade, String sexo, int altura, int peso, int nivelAtividade) {
         this.idUsuario = idUsuario;
         this.idade = idade;
         this.sexo = sexo;
@@ -33,11 +34,11 @@ public class Perfil {
         this.peso=peso;
     }
 
-    public int getIdade() {
+    public LocalDate getIdade() {
         return idade;
     }
 
-    public void setIdade(int idade) {
+    public void setIdade(LocalDate idade) {
         this.idade = idade;
     }
 

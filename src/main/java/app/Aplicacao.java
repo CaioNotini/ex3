@@ -33,7 +33,7 @@ public class Aplicacao {
         post("/index", (request, response) -> userService.perfil(request, response));
 
         get("/profile", (request,response)-> profile(request,response), engine);
-        
+        get("/logout", (request,response)-> { userService.logout(request, response); return null;});
 
         get("/mercado", (request,response)-> mercado(request,response), engine);
 
@@ -51,7 +51,7 @@ public class Aplicacao {
     public static ModelAndView cadastro(Request request, Response response) {
 		HashMap<String, Object> model = new HashMap<>();
 
-		return new ModelAndView(model, "paginas/register.html");
+		return new ModelAndView(model, "templates/register.vm");
 	}
 
 	public static ModelAndView login(Request request, Response response) {
@@ -80,6 +80,7 @@ public class Aplicacao {
         }
         return new ModelAndView(model, "templates/profile.vm");
     }
+
 
     
     public static ModelAndView mercado(Request request, Response response) {

@@ -1,381 +1,541 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="assets/css/cabecalho.css">
     <title>BH Saúde</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
-    
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+      crossorigin="anonymous"
+    />
 
     <!------ FontAwesome ------->
-    <script src="https://kit.fontawesome.com/c8e4d183c2.js" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic" rel="stylesheet" />
-    
-  
-</head>
+    <script
+      src="https://kit.fontawesome.com/c8e4d183c2.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic"
+      rel="stylesheet"
+    />
+  </head>
 
-<header>
+  <header>
+    <a href="/index" style="color: #000; text-decoration: none">
+      <div class="logo" style="margin-top: 10px">BH Saúde</div>
+    </a>
+    <input type="checkbox" id="nav_check" hidden />
     <nav>
-      <a href="/index"><img class="logo" src="" alt="logo"></a>
-      <div class="mobile-menu">
-        <div class="line1"></div>
-        <div class="line2"></div>
-        <div class="line3"></div>
-  
-  
-      </div>
-      <ul class="nav-list">
-        <li><a href="/gerador">Monte sua Dieta</a></li>
-        <li><a href="/mercado">Compre Conosco</a></li>
-        <li class="P-mobile"><a href="">Perfil</a></li>
+      <ul>
+        <li>
+          <a href="/index" class="active">Home</a>
+        </li>
+        <li>
+          <a href="" class="">Receitas</a>
+        </li>
+        <li>
+          <a href="/gerador">Crie sua Dieta</a>
+        </li>
+        <li>
+          <a href="/profile">Conta</a>
+        </li>
+        <li></li>
+        <li>
+          <a class="carrinho" href="/mercado"
+            ><i class="fa fa-shopping-cart"></i>
+          </a>
+        </li>
       </ul>
-     
-      <a href="/profile">
-        <div class="profile-icon">
-        <i class="fas fa-user"></i>
-        <span class="profile-text">Perfil</span>
-      </div>
-      </a>
-    
     </nav>
+    <label for="nav_check" class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </label>
   </header>
 
-
-<body>
-
-  <div class="box">
-    <div class="texto" style="margin-top: 0px;">
-      <p  style="font-size: small; margin-bottom: -5px;"><a href="/index" class="b" style="text-decoration: none; color: #bab9b998;">BH Saúde </a>> Início</p>
-      <h1>Nutrição</h1>
-      <h5 style="margin-left:200px; margin-right: 200px; font-size: 1.4vw;">Tudo que voce precisa saber sobre alimentos saudáveis, dieta ou diversas receitas. Crie um próprio plano de alimentação ou escolha e procure suas receitas favoritas!  </p>
-
+  <body>
+    <div class="box" style="margin-top: 0px">
+      <div class="texto" style="margin-top: 0px">
+        <p style="font-size: small; margin-bottom: -5px">
+          <a
+            href="/index"
+            class="b"
+            style="text-decoration: none; color: #bab9b998"
+            >BH Saúde </a
+          >> Início
+        </p>
+        <h1>Nutrição</h1>
+        <h5 style="margin-left: 200px; margin-right: 200px; font-size: 1.4vw">
+          Tudo que voce precisa saber sobre alimentos saudáveis, dieta ou
+          diversas receitas. Crie um próprio plano de alimentação ou escolha e
+          procure suas receitas favoritas!
+        </h5>
+      </div>
     </div>
-  </div>
 
-<div class="c">
-<div class="center-card">
-  <div class="card">
-    <div class="card-image"><img src="" alt=""></div>
-    <div class="category"><h1>Dieta</h1>  </div>
-    <div class="heading"> Tudo sobre os principais tipos de dieta e estilos alimentares, incluindo dieta detox, cetogênica, jejum intermitente ou low carb...</div>
-    <a href="" class="card_cta">Saiba mais <span>&rarr;</span></a>
-  </div>
-</div>
-
-<div class="center-card">
-  <div class="card">
-    <div class="card-image"></div>
-    <div class="category"><h1>Nutrição</h1>  </div>
-    <div class="heading"> Confira as dicas mais valiosas para perder peso ou ganhar massa. Dicas de dieta e suplementação para uma vida saudável em qualquer fase da vida.</div>
-    <a href="" class="card_cta">Saiba mais <span>&rarr;</span></a>
-
-  </div>
-</div>
-
-<div class="center-card">
-  <div class="card">
-    <div class="card-image"></div>
-    <div class="category"><h1>Alimentos</h1>  </div>
-    <div class="heading"> Informações confiáveis sobre os alimentos mais comuns, incluindo benefícios para a saúde, informações nutricionais, receitas saudáveis, quantidades... </div>
-    <a href="" class="card_cta">Saiba mais <span>&rarr;</span></a>
-
-  </div>
-</div>
-</div>
-
-<div>
-  <div class="texto">
-    <h1>Calcule suas Calorias!</h1>
-    <h5>Forneça suas informações para a BH Saúde fazer um plano de refeições especializado para voce!</h5>
-  </div>  
-
-    <div class="form">
-  <form action="/index" method="post">
-      <div>
-          <label for="idade">Idade:</label>
-          <input type="number" id="idade" name="idade" required>
+    <div class="c">
+      <div class="center-card">
+        <div class="card">
+          <div class="card-image">
+            <img
+              src="/src/main/resources/public/imagens/Comidas.webp"
+              style="height: 200px; width: 335px; border-radius: 6px 6px 0 0"
+              alt=""
+            />
+          </div>
+          <div class="category"><h1>Dieta</h1></div>
+          <div class="heading">
+            Tudo sobre os principais tipos de dieta e estilos alimentares,
+            incluindo dietas vegetarianas, veganas, jejum intermitente, low
+            carb...
+          </div>
+          <a href="" class="card_cta">Saiba mais <span>&rarr;</span></a>
+        </div>
       </div>
-      <div>
-          <label for="peso">Peso (kg):</label>
-          <input type="number" id="peso" name="peso" required>
+
+      <div class="center-card">
+        <div class="card">
+          <div class="card-image">
+            <img
+              src="/src/main/resources/public/imagens/healthy.jpg"
+              alt=""
+              style="height: 200px; width: 335px; border-radius: 6px 6px 0 0"
+            />
+          </div>
+          <div class="category"><h1>Nutrição</h1></div>
+          <div class="heading">
+            Confira as dicas mais valiosas para perder peso ou ganhar massa.
+            Dicas de dieta e suplementação para uma vida saudável em qualquer
+            fase da vida.
+          </div>
+          <a href="" class="card_cta">Saiba mais <span>&rarr;</span></a>
+        </div>
       </div>
-      <div>
-          <label for="altura">Altura (cm):</label>
-          <input type="number" id="altura" name="altura" required>
+
+      <div class="center-card">
+        <div class="card">
+          <div class="card-image">
+            <img
+              src="/src/main/resources/public/imagens/healthy2.jpg"
+              alt=""
+              style="height: 200px; width: 335px; border-radius: 6px 6px 0 0"
+            />
+          </div>
+          <div class="category"><h1>Alimentos</h1></div>
+          <div class="heading">
+            Informações confiáveis sobre os alimentos mais comuns, incluindo
+            benefícios para a saúde, informações nutricionais, receitas
+            saudáveis, quantidades...
+          </div>
+          <a href="" class="card_cta">Saiba mais <span>&rarr;</span></a>
+        </div>
       </div>
-      <div class="radio-group">
-        <label for="M">Masculino</label><br>
-        <input type="radio" id="masculino" name="sexo" value="M" required>
-        <label for="F">Feminino</label>
-        <input type="radio" id="feminino" name="sexo" value="F">
     </div>
-      <div>
-          <label for="nivelatividade">Nível de Atividade:</label>
-          <select id="nivelatividade" name="nivelatividade" required>
-            <option disabled selected></option>
+
+    <div>
+      <div class="texto">
+        <h1>Calcule suas Calorias!</h1>
+        <h5>
+          Forneça suas informações para a BH Saúde fazer um plano de refeições
+          especializado para voce!
+        </h5>
+      </div>
+
+      <div class="form">
+        <form action="/index" method="post">
+          <div>
+            <label for="idade">Idade:</label>
+            <input type="date" id="idade" name="idade" required />
+          </div>
+          <div>
+            <label for="peso">Peso (kg):</label>
+            <input type="number" id="peso" name="peso" required />
+          </div>
+          <div>
+            <label for="altura">Altura (cm):</label>
+            <input type="number" id="altura" name="altura" required />
+          </div>
+          <div class="radio-group">
+            <label for="M">Masculino</label><br />
+            <input type="radio" id="masculino" name="sexo" value="M" required />
+            <label for="F">Feminino</label>
+            <input type="radio" id="feminino" name="sexo" value="F" />
+          </div>
+          <div>
+            <label for="nivelatividade">Nível de Atividade:</label>
+            <select id="nivelatividade" name="nivelatividade" required>
+              <option disabled selected></option>
               <option value="1">Sedentário</option>
               <option value="2">Levemente ativo</option>
               <option value="3">Moderadamente ativo</option>
               <option value="4">Muito ativo</option>
               <option value="5">Extra ativo</option>
-          </select>
+            </select>
+          </div>
+          <button type="submit">Calcula Calorias</button>
+        </form>
       </div>
-      <button type="submit">Calcula Calorias</button>
-  </form>
-  </div>
-</div>
+    </div>
 
+    <div class="texto" style="margin-top: -150px">
+      <h1>Receitas mais avaliadas:</h1>
+      <h5>
+        Confira as receitas e alimentos mais bem avaliadas e visitadas pelos
+        usuários BH Saúde!
+      </h5>
+    </div>
 
-
-  <div class="texto" style="margin-top: -150px;">
-    <h1>Receitas mais avaliadas:</h1>
-    <h5>Confira as receitas e alimentos mais bem avaliadas e visitadas pelos usuários BH Saúde!</h5>
-  </div>
-
-  <div class="r">
-    <div class="receitas">
-      <iframe class="video" width="250" height="180" src="https://www.youtube.com/embed/DNhCuNwR-aM" frameborder="0" allow="accelerometer; autoplay; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in"></iframe>
-      <div class="texto-video">
-      <h4>Brownie Fit sem Glúten</h4>
-      <p>Essa receita de brownie fit é uma delícia fácil que você vai amar! Não tem farinha (sem glúten), não tem açúcar adicionado, não tem leite de vaca (sem lactose) e não tem manteiga. São poucos ingredientes, rápido e barato de preparar.</p>
-        <div class="rating">
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
-          <span class="star">&#9733;</span>
+    <div class="r">
+      <a href="/receitas">
+        <div class="receitas">
+          <iframe
+            class="video"
+            width="250"
+            height="180"
+            src="https://www.youtube.com/embed/DNhCuNwR-aM"
+            frameborder="0"
+            allow="accelerometer; autoplay; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in"
+          ></iframe>
+          <div class="texto-video">
+            <h4>Brownie Fit sem Glúten</h4>
+            <p>
+              Essa receita de brownie fit é uma delícia fácil que você vai amar!
+              Não tem farinha (sem glúten), não tem açúcar adicionado, não tem
+              leite de vaca (sem lactose) e não tem manteiga. São poucos
+              ingredientes, rápido e barato de preparar.
+            </p>
+            <div class="rating">
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+              <span class="star">&#9733;</span>
+            </div>
+          </div>
         </div>
+      </a>
     </div>
-    </div>
-<a href="/receitas" style="color: black;">oi</a>
-  </div>
   </body>
 
+  <style>
+    .form {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
 
+    form {
+      background: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      max-width: 400px;
+      width: 100%;
+      margin-top: -180px;
+    }
 
+    div {
+      margin-bottom: 15px;
+    }
 
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
 
+    input[type="number"],
+    input[type="radio"],
+    select {
+      width: 100%;
+      padding: 8px;
+      margin: 4px 0 12px;
+      display: block;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
 
-<style>
-  .form {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-}
+    input[type="radio"] {
+      width: auto;
+      margin-top: 0;
+    }
 
-form {
-    background: #ffffff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    max-width: 400px;
-    width: 100%;
-    margin-top: -180px;
-}
+    button[type="submit"] {
+      width: 100%;
+      background-color: #4aa2f4;
+      color: white;
+      padding: 12px 20px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
 
-div {
-    margin-bottom: 15px;
-}
+    button[type="submit"]:hover {
+      background-color: #4091c9;
+    }
 
-label {
-    display: block;
-    margin-bottom: 5px;
-}
+    .radio-group {
+      display: flex;
+      margin-left: 80px;
+    }
 
-input[type="number"],
-input[type="radio"],
-select {
-    width: 100%;
-    padding: 8px;
-    margin: 4px 0 12px;
-    display: block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
+    .radio-group label,
+    .radio-group input {
+      margin: 5px;
+    }
 
-input[type="radio"] {
-    width: auto;
-    margin-top: 0;
-}
+    /* texto */
 
-button[type="submit"] {
-    width: 100%;
-    background-color: #4AA2F4;
-    color: white;
-    padding: 12px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+    .texto {
+      margin-top: 50px;
+      text-align: center;
+    }
 
-button[type="submit"]:hover {
-    background-color: #4091c9;
-}
+    body {
+    }
 
-.radio-group{
-    display: flex;
-    margin-left: 80px;
-}
+    .box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 240px;
+      background-color: rgb(230, 247, 255);
+      margin-bottom: 50px;
+      align-items: center;
+    }
 
-.radio-group label, .radio-group input{
-    margin: 5px;
-    
-}
-
-/* texto */
-
-.texto{
-  margin-top: 50px;
-text-align: center; 
-}
-
-body{
-
-}
-
-  .box{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 240px;
-    background-color: rgb(230, 247, 255);
-    margin-bottom: 50px;
-    align-items: center;
-  }
-
-    .b:hover{
+    .b:hover {
       opacity: 0.5;
     }
 
-/* Card */
+    /* Card */
 
-.c {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
+    .c {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
 
-.center-card {
-  margin: 10px; 
-}
+    .center-card {
+      margin: 10px;
+    }
 
-.card {
-  width: 350px;
-  background: white;
-  padding: .4em;
-  border-radius: 6px;
- height: 350px;
-}
+    .card {
+      width: 360px;
+      background: white;
+      padding: 0.4em;
+      border-radius: 6px;
+      height: 420px;
+    }
 
-.card-image {
-  background-color: rgb(236, 236, 236);
-  width: 100%;
-  height: 170px;
-  border-radius: 6px 6px 0 0;
-}
+    .card-image {
+      background-color: rgb(236, 236, 236);
+      margin-left: 1.75%;
+      width: 90%;
+      height: 200px;
+      border-radius: 6px 6px 0 0;
+    }
 
-.card-image:hover {
-  transform: scale(0.98);
-}
+    .card-image:hover {
+      transform: scale(0.98);
+    }
 
-.category h1{
-  text-transform: uppercase;
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: black;
-  padding: 0px 7px 0;
-}
+    .category h1 {
+      text-transform: uppercase;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: black;
+      padding: 0px 7px 0;
+    }
 
-.category:hover {
-  cursor: pointer;
-}
+    .category:hover {
+      cursor: pointer;
+    }
 
-.heading {
-  margin-top: -20px;
-  font-weight: 600;
-  color: rgb(88, 87, 87);
-  padding: 7px;
-}
+    .heading {
+      margin-top: -20px;
+      font-weight: 600;
+      color: rgb(88, 87, 87);
+      padding: 7px;
+    }
 
-.heading:hover {
-  cursor: pointer;
-}
+    .heading:hover {
+      cursor: pointer;
+    }
 
-.card_cta{
-  position: relative;
-  display: inline-block;
-  text-decoration: none;
-  font-weight: bold;
-  color: rgb(63, 121, 230);
-}
+    .card_cta {
+      position: relative;
+      display: inline-block;
+      text-decoration: none;
+      font-weight: bold;
+      color: rgb(63, 121, 230);
+    }
 
-.card_cta span{
-  position: inherit;
-  transition: transform 0.5s;
-}
+    .card_cta span {
+      position: inherit;
+      transition: transform 0.5s;
+    }
 
-.card_cta:hover span{
-  transform: translateX(0.5rem);
-}
+    .card_cta:hover span {
+      transform: translateX(0.5rem);
+    }
 
-/* Receitas recomendadas */
+    /* Receitas recomendadas */
 
-.r{
-  margin-left: 215px;
-  margin-right: 215px;
-  display: flex;
-  justify-content: left;
-}
+    .r {
+      margin-left: 215px;
+      margin-right: 215px;
+      display: flex;
+      justify-content: left;
+    }
+    .r a {
+      text-decoration: none;
+    }
 
-.receitas{
-  display: flex;
-  align-items: center;
-  justify-content: start;
-  width: 800px;
-  height: 220px;
-  border-radius: 5px;
-}
+    .receitas {
+      display: flex;
+      align-items: center;
+      justify-content: start;
+      width: 800px;
+      height: 220px;
+      border-radius: 5px;
+    }
 
-.video{
-  border-radius: 6px;
-  margin: 10px;
-}
+    .video {
+      border-radius: 6px;
+      margin: 10px;
+    }
 
-.texto-video{
-  max-width: calc(100% - 200px);
-  margin-left: 15px;
-  margin-top: 25px;
-  margin-bottom: 5px;
-}
+    .texto-video {
+      max-width: calc(100% - 200px);
+      margin-left: 15px;
+      margin-top: 25px;
+      margin-bottom: 5px;
+      color: #000;
+    }
 
-.rating {
-  margin-top: -18px;
-  unicode-bidi: bidi-override;
-  direction: rtl;
-  text-align: left;
-}
+    .rating {
+      margin-top: -18px;
+      unicode-bidi: bidi-override;
+      direction: rtl;
+      text-align: left;
+    }
 
-.star {
-  font-size: 24px;
-  color: gray;
-}
+    .star {
+      font-size: 24px;
+      color: gray;
+    }
 
-.rating .star:nth-child(-n+5) {
-  color: gold;
-}
+    .rating .star:nth-child(-n + 5) {
+      color: gold;
+    }
 
+    /* Navbar */
 
+    header {
+      position: sticky;
+      background: #fff;
+      width: 100%;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 50px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.05);
+      z-index: 1000;
+      transition: background-color 0.3s ease;
+    }
 
-</style>
-<link rel="stylesheet" href="assets/js/script.js">
+    header a {
+      text-decoration: none;
+      color: #333; /* Dark grey text */
+    }
+
+    header .logo {
+      font-size: 24px;
+      font-weight: bold;
+      color: dodgerblue; /* Brand color */
+      text-transform: uppercase;
+    }
+
+    header nav ul {
+      display: flex;
+      list-style: none;
+      padding: 0;
+      margin-top: 10px;
+    }
+
+    header nav ul li a {
+      padding: 10px 15px;
+      margin: 0 5px;
+      font-weight: 500;
+      text-transform: uppercase;
+      transition: color 0.3s ease, border-color 0.3s ease;
+    }
+
+    header nav ul li a:hover,
+    header nav ul li a.active {
+      opacity: 0.7;
+      border-bottom: 2px solid dodgerblue;
+    }
+
+    .hamburger {
+      display: none;
+      cursor: pointer;
+    }
+
+    .hamburger div {
+      background-color: #333;
+    }
+
+    @media (max-width: 900px) {
+      header {
+        padding: 0 20px;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .hamburger {
+        display: block;
+      }
+
+      header nav {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        transform: translateX(-100%);
+        transition: transform 0.3s ease-in-out;
+      }
+
+      header #nav_check:checked ~ nav {
+        transform: translateX(0);
+      }
+
+      header nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      header nav ul li a {
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="assets/js/script.js" />
 </html>

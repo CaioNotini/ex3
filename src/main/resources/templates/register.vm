@@ -45,6 +45,12 @@
 			</div>
 		</div>
 	</div>
+	 <div>
+        #if($request.session().attribute("message"))
+        <p>${request.session().attribute("message")}</p>
+        $request.session().removeAttribute("message")
+        #end
+    </div>
 </div>
 </body>
 <script>

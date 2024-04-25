@@ -40,15 +40,15 @@ public class UserDAO extends DAO {
 
 		
 		try{
-			String sql = "INSERT INTO perfilusuario (id_usuario,sexo, idade, altura, peso, nivelatividade) VALUES (?,?,?,?,?,?)";
+        String sql = "UPDATE usuarios SET sexo = ?, datanascimento = ?, altura = ?, peso = ?, nivelfitnes = ? WHERE id_usuario = ?";
 			
 			PreparedStatement stmt = conexao.prepareStatement(sql);
-			stmt.setInt(1, perfil.getid_usuario());
-			stmt.setString(2, perfil.getSexo());
-			stmt.setInt(3,perfil.getIdade());
-			stmt.setInt(4, perfil.getAltura());
-			stmt.setInt(5,perfil.getPeso());
-			stmt.setInt(6, perfil.getNivelAtividade());
+			   stmt.setString(1, perfil.getSexo());
+        		stmt.setDate(2, Date.valueOf(perfil.getIdade()));
+       		 	stmt.setInt(3, perfil.getAltura());
+        		stmt.setInt(4, perfil.getPeso());
+        		stmt.setInt(5, perfil.getNivelAtividade());
+        		stmt.setInt(6, perfil.getid_usuario()); 
 
 			int rowsAffected = stmt.executeUpdate();
 			if (rowsAffected > 0) {
@@ -66,11 +66,11 @@ public class UserDAO extends DAO {
 	public boolean insertCalories(Calorias calories){
 		boolean status = false; 
 		try{
-			String sql = "INSERT INTO calorias (id_usuario, caloriasdiarias) VALUES (?,?)";
+			String sql = "UPDATE usuarios SET caloriasdiarias = ?  WHERE id_usuario = ?";
 
 			PreparedStatement stmt = conexao.prepareStatement(sql);
-			stmt.setInt(1, calories.getid_usuario());
-			stmt.setInt(2, calories.getCalorias());
+			stmt.setInt(2, calories.getid_usuario());
+			stmt.setInt(1, calories.getCalorias());
 			int rowsAffected = stmt.executeUpdate();
 			if (rowsAffected > 0) {
 				status = true;
@@ -133,7 +133,7 @@ public class UserDAO extends DAO {
 		Calorias calorias = null;
 
 		try {
-			String sql = "SELECT caloriasdiarias FROM calorias WHERE id_usuario=?";
+			String sql = "SELECT caloriasdiarias FROM usuarios WHERE id_usuario=?";
 
 			PreparedStatement ps = conexao.prepareStatement(sql);
 			ps.setInt(1, id_usuario);
@@ -177,11 +177,11 @@ public class UserDAO extends DAO {
 	public boolean updateProfile(Perfil perfil){
 		boolean status	 = false;
 		try{
-			String sql = "UPDATE perfilusuario SET sexo = ?, idade = ?, altura = ?, peso = ?, nivelatividade = ? WHERE id_usuario = ?";
+			String sql = "UPDATE usuarios SET sexo = ?, datanascimento = ?, altura = ?, peso = ?, nivelfitnes = ? WHERE id_usuario = ?";
 			PreparedStatement stmt = conexao.prepareStatement(sql);
 			stmt.setString(2, perfil.getSexo());
 			stmt.setInt(4, perfil.getAltura());
-			stmt.setInt(3, perfil.getIdade());
+        	stmt.setDate(2, Date.valueOf(perfil.getIdade()));
 			stmt.setInt(5, perfil.getPeso());
 			stmt.setInt(6, perfil.getNivelAtividade());
 			stmt.setInt(1, perfil.getid_usuario());

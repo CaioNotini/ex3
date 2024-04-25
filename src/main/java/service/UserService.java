@@ -7,7 +7,11 @@ import model.Perfil;
 import model.Calorias;
 import model.User;
 import java.security.*;
+import java.time.*;
 
+import org.eclipse.jetty.server.LocalConnector;
+
+import static spark.Spark.halt;
 import static spark.Spark.redirect;
 
 import java.math.*;
@@ -28,10 +32,10 @@ public class UserService {
 		User user = new User(nome, email, senha);
 
 		if (userDAO.insert(user) == true) {
-			response.status(201);
+        request.session().attribute("message", "Usuário cadastrado com sucesso!");
 			response.redirect("/login");
 		} else {
-			response.status(404);
+        request.session().attribute("message", "Erro ao cadastrar usuário");
 		}
 
 		return response;
@@ -51,7 +55,7 @@ public class UserService {
 			response.redirect("/index");
 		} else {
 			response.status(401);
-			response.redirect("/index");
+			response.redirect("/login");
 		}
 	
 		return response;
@@ -59,10 +63,10 @@ public class UserService {
 
 
 
-	public Object logout(Request request, Response response) {
+	public void logout(Request request, Response response) {
     request.session().invalidate();
     response.redirect("/login");
-    return response;
+    halt();
 }
 
 	
@@ -94,12 +98,15 @@ public class UserService {
 	
 		// Recupera dados do perfil do formulário
 		String sexo = request.queryParams("sexo");
-		int idade = Integer.parseInt(request.queryParams("idade"));
+		String idade = request.queryParams("idade");
 		int altura = Integer.parseInt(request.queryParams("altura"));
 		int peso = Integer.parseInt(request.queryParams("peso"));
 		int nivelAtividade = Integer.parseInt(request.queryParams("nivelatividade"));
-	
-		Perfil perfil = new Perfil(currentUser.getId(), idade, sexo, altura, peso, nivelAtividade);
+		
+		LocalDate data = LocalDate.parse(idade);
+		
+
+		Perfil perfil = new Perfil(currentUser.getId(), data, sexo, altura, peso, nivelAtividade);
 		boolean insertORupdate = false;
 	
 		boolean existe = userDAO.checkProfileExists(currentUser.getId());
@@ -115,9 +122,16 @@ public class UserService {
 			response.status(500); // 
 			return response; 
 		}
+
+		//Calculando a idade
+			LocalDate dataUsuario = perfil.getIdade();
+			LocalDate dataAtual = LocalDate.now();
+			Period period = Period.between(dataUsuario, dataAtual);
+			int age = period.getYears();
+
 	
 		// Calcula as calorias
-		int calories = calculateCalories(perfil.getSexo(), perfil.getPeso(), perfil.getAltura(), perfil.getIdade(), perfil.getNivelAtividade());
+		int calories = calculateCalories(perfil.getSexo(), perfil.getPeso(), perfil.getAltura(), age, perfil.getNivelAtividade());
 		Calorias calorias = new Calorias(currentUser.getId(), calories);
 		boolean KGInsertORupdate;
 	
