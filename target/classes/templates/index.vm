@@ -83,7 +83,7 @@
         <div class="card">
           <div class="card-image">
             <img
-              src="/src/main/resources/public/imagens/Comidas.webp"
+              src="/imagens/Comidas.webp"
               style="height: 200px; width: 335px; border-radius: 6px 6px 0 0"
               alt=""
             />
@@ -102,7 +102,7 @@
         <div class="card">
           <div class="card-image">
             <img
-              src="/src/main/resources/public/imagens/healthy.jpg"
+              src="/imagens/healthy.jpg"
               alt=""
               style="height: 200px; width: 335px; border-radius: 6px 6px 0 0"
             />
@@ -121,7 +121,7 @@
         <div class="card">
           <div class="card-image">
             <img
-              src="/src/main/resources/public/imagens/healthy2.jpg"
+              src="/imagens/healthy2.jpg"
               alt=""
               style="height: 200px; width: 335px; border-radius: 6px 6px 0 0"
             />
@@ -197,17 +197,14 @@
             class="video"
             width="250"
             height="180"
-            src="https://www.youtube.com/embed/DNhCuNwR-aM"
+            src="https://www.youtube.com/embed/$receita.getCodigoVideo()"
             frameborder="0"
             allow="accelerometer; autoplay; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in"
           ></iframe>
           <div class="texto-video">
-            <h4>Brownie Fit sem Glúten</h4>
+            <h4>$receita.getNome()</h4>
             <p>
-              Essa receita de brownie fit é uma delícia fácil que você vai amar!
-              Não tem farinha (sem glúten), não tem açúcar adicionado, não tem
-              leite de vaca (sem lactose) e não tem manteiga. São poucos
-              ingredientes, rápido e barato de preparar.
+              $receita.getDescricao()
             </p>
             <div class="rating">
               <span class="star">&#9733;</span>

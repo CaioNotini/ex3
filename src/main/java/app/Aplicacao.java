@@ -1,20 +1,18 @@
 package app;
 
 import spark.*;
-import spark.Request;
-import spark.Response;
 import spark.template.velocity.VelocityTemplateEngine;
 import java.util.HashMap;
-
-import dao.UserDAO;
-
 import static spark.Spark.*;
-import service.UserService;
-import model.Calorias;
-import model.User;
+
+
+import dao.*;
+import service.*;
+import model.*;
 
 public class Aplicacao {
-    private static UserService userService = new UserService();
+    private static UserService userService;
+    private static ReceitasService receitasService;
 
     public static void main(String[] args) {
         
@@ -34,6 +32,7 @@ public class Aplicacao {
 
         get("/profile", (request,response)-> profile(request,response), engine);
         get("/logout", (request,response)-> { userService.logout(request, response); return null;});
+        post("/delete", (request, response) -> userService.delete(request, response));
 
         get("/mercado", (request,response)-> mercado(request,response), engine);
 
@@ -42,14 +41,16 @@ public class Aplicacao {
 
 
         get("/gerador", (request,response)-> gerador(request,response), engine);
-
-
-
-        
+   
     }
 
     public static ModelAndView cadastro(Request request, Response response) {
+        String message = request.session().attribute("message");
 		HashMap<String, Object> model = new HashMap<>();
+        if(message != null){
+            model.put(message, message);
+            request.session().removeAttribute(message);
+        }
 
 		return new ModelAndView(model, "templates/register.vm");
 	}
@@ -62,7 +63,8 @@ public class Aplicacao {
 
     public static ModelAndView index(Request request, Response response){
         HashMap<String,Object> model=new HashMap<>();
-        return new ModelAndView(model, "paginas/index.html");
+        
+        return new ModelAndView(model, "templates/index.vm");
     }
 
     public static ModelAndView profile(Request request, Response response) {

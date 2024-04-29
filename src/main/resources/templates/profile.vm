@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Perfil</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet"> 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
 
     <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
+      body {
+        font-family: Arial, sans-serif;
+      }
     </style>
-</head>
+  </head>
 
   <header>
     <a href="/index" style="color: #000; text-decoration: none">
@@ -48,34 +54,80 @@
     </label>
   </header>
 
-<body>
+  <body>
+    <div class="card">
+      <div class="header">
+        <div class="image">
+          <svg
+            aria-hidden="true"
+            stroke="currentColor"
+            stroke-width="1.5"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+              stroke-linejoin="round"
+              stroke-linecap="round"
+            ></path>
+          </svg>
+        </div>
+        <div class="content">
+          <span class="title">Deletar Conta</span>
+          <p class="message">
+            Deseja mesmo exluir sua conta? Todas suas informações serão
+            permanentemente excluídas. Essa ação não pode ser desfeita.
+          </p>
+        </div>
+        <div class="actions">
+            <form action="/delete" method="post">
+                <button type="submit" class="desactivate">Excluir</button>
+            </form>          
+              <button class="cancel" type="button">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+
     <!-- Perfil do usuário -->
     <div class="flex items-center justify-center">
-        <div class="profile-container border-2 border-blue-400 w-50 rounded-xl p-10 m-10 shadow-2xl">
-            <div class="profile-info">
-                <h1 class="text-center text-2xl mb-3">Informações do Usuário:</h1>
-                <p class ="p-2"><strong>Nome:</strong> $user.getNome()</p>
-                <p class ="p-2"><strong>Email:</strong> $user.getEmail()</p>
-                
-                #if($calorias && $calorias.getCalorias() > 0)
-                    <p class ="p-2"><strong>Calorias:</strong> $calorias.getCalorias()</p>
-                #else
-                    <p class ="p-2">Calorias não encontradas.</p>
-                #end
-                
-                <p class ="p-2"><strong>Outras Informações:</strong> Outros detalhes sobre o usuário</p>
-                
-            </div>
-          <div class="flex justify-center space-x-2 mt-4">
-    <a href="/logout" class="bg-blue-400  px-12 py-2 rounded-lg font-semibold text-sm text-white hover:text-white hover:bg-blue-600 transition duration-300 ease-in-out">Sair</a>
-    <a href="/delete" class="bg-blue-400  px-4 py-2 rounded-lg font-semibold text-sm text-white hover:text-white hover:bg-blue-600 transition duration-300 ease-in-out">Deletar Conta</a>
-</div>
-  </div> 
-    </div>
-</body>
+      <div
+        class="profile-container border-2 border-blue-400 w-50 rounded-xl p-10 m-10 shadow-2xl"
+      >
+        <div class="profile-info">
+          <h1 class="text-center text-2xl mb-3">Informações do Usuário:</h1>
+          <p class="p-2"><strong>Nome:</strong> $user.getNome()</p>
+          <p class="p-2"><strong>Email:</strong> $user.getEmail()</p>
 
-<style> 
- /* Navbar */
+          #if($calorias && $calorias.getCalorias() > 0)
+          <p class="p-2"><strong>Calorias:</strong> $calorias.getCalorias()</p>
+          #else
+          <p class="p-2">Calorias não encontradas.</p>
+          #end
+
+          <p class="p-2">
+            <strong>Outras Informações:</strong> Outros detalhes sobre o usuário
+          </p>
+        </div>
+        <div class="flex justify-center space-x-2 mt-4">
+          <a
+            href="/logout"
+            class="bg-blue-400 px-12 py-2 rounded-lg font-semibold text-sm text-white hover:text-white hover:bg-blue-600 transition duration-300 ease-in-out"
+            >Sair</a
+          >
+          <button
+            class="delete bg-blue-400 px-4 py-2 rounded-lg font-semibold text-sm text-white hover:text-white hover:bg-blue-600 transition duration-300 ease-in-out"
+          >
+            Deletar Conta
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="overlay hidden"></div>
+  </body>
+
+  <style>
+    /* Navbar */
 
     header {
       position: sticky;
@@ -171,9 +223,144 @@
         text-align: center;
       }
     }
-  
-</style>
-      <script src="assets/js/script.js"></script>
 
+    .card {
+      overflow: hidden;
+      position: absolute;
+      left: 40.5%;
+      top: 15%;
+      background-color: #ffffff;
+      text-align: left;
+      border-radius: 0.5rem;
+      max-width: 290px;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+        0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      z-index: 10;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(3px);
+      z-index: 5;
+    }
+
+    .header {
+      padding: 1.25rem 1rem 1rem 1rem;
+      background-color: #ffffff;
+    }
+
+    .image {
+      display: flex;
+      margin-left: auto;
+      margin-right: auto;
+      background-color: #fee2e2;
+      flex-shrink: 0;
+      justify-content: center;
+      align-items: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: 9999px;
+    }
+
+    .image svg {
+      color: #dc2626;
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+
+    .content {
+      margin-top: 0.75rem;
+      text-align: center;
+    }
+
+    .title {
+      color: #111827;
+      font-size: 1rem;
+      font-weight: 600;
+      line-height: 1.5rem;
+    }
+
+    .message {
+      margin-top: 0.5rem;
+      color: #6b7280;
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+    }
+
+    .actions {
+      margin: 0.75rem 1rem;
+      background-color: #f9fafb;
+    }
+
+    .desactivate {
+      display: inline-flex;
+      padding: 0.5rem 1rem;
+      background-color: #dc2626;
+      color: #ffffff;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      font-weight: 500;
+      justify-content: center;
+      width: 100%;
+      border-radius: 0.375rem;
+      border-width: 1px;
+      border-color: transparent;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    .cancel {
+      display: inline-flex;
+      margin-top: 0.75rem;
+      padding: 0.5rem 1rem;
+      background-color: #ffffff;
+      color: #374151;
+      font-size: 1rem;
+      line-height: 1.5rem;
+      font-weight: 500;
+      justify-content: center;
+      width: 100%;
+      border-radius: 0.375rem;
+      border: 1px solid #d1d5db;
+      box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+  <script src="assets/js/script.js"></script>
+  <script>
+    let card = document.querySelector(".card");
+    let btnDelete = document.querySelector(".delete");
+    let btnCancel = document.querySelector(".cancel");
+    let overlay = document.querySelector(".overlay");
+    let header = document.querySelector("header");
+
+    card.classList.add("hidden");
+
+    btnDelete.addEventListener("click", function () {
+      card.classList.remove("hidden");
+      overlay.classList.remove("hidden");
+      header.classList.add("hidden");
+    });
+
+    btnCancel.addEventListener("click", function () {
+      card.classList.add("hidden");
+      overlay.classList.add("hidden");
+      header.classList.remove("hidden");
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key == "Escape") {
+        card.classList.add("hidden");
+        overlay.classList.add("hidden");
+        header.classList.remove("hidden");
+      }
+    });
+  </script>
 </html>
-

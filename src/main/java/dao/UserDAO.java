@@ -35,6 +35,27 @@ public class UserDAO extends DAO {
 		return status;
 	}
 
+	public boolean delete(User user){
+		boolean status = false;
+		try{
+			String sql = "DELETE FROM usuarios WHERE id_usuario = ?";
+
+			PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+
+			preparedStatement.setInt(1, user.getId());
+
+			preparedStatement.executeUpdate();
+			preparedStatement.close();
+
+			status=true;
+
+		} catch (SQLException e){
+			System.err.println(e);
+		}
+
+	return status;
+	}
+
 	public boolean insertProfile(Perfil perfil){
 		boolean status = false;
 

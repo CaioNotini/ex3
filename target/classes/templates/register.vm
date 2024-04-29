@@ -13,9 +13,10 @@
       
 </head>
 <body>
+#if($message)
+<div class="alert delete">$message</div> 
+#end
 <div class="container" id="container">
-	
-	
 	<div class="form-container sign-in-container">
 		<form action="/register" method="post">
 			<h1>Criar Conta</h1>
@@ -45,12 +46,6 @@
 			</div>
 		</div>
 	</div>
-	 <div>
-        #if($request.session().attribute("message"))
-        <p>${request.session().attribute("message")}</p>
-        $request.session().removeAttribute("message")
-        #end
-    </div>
 </div>
 </body>
 <script>

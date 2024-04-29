@@ -69,6 +69,33 @@ public class UserService {
     halt();
 }
 
+	public Object delete(Request request, Response response){
+    UserDAO dao = new UserDAO();
+    Session session = request.session(false);
+    if (session != null) {
+        User currentUser = session.attribute("currentUser");
+        if (currentUser != null) {
+            try {
+                dao.delete(currentUser);
+                session.invalidate(); 
+				request.session().attribute("message", "Conta excluída com sucesso!");
+                response.redirect("/register"); 
+            } catch (Exception e) {
+                response.status(500);
+                System.err.println("Erro ao deletar o usuário: " + e.getMessage());
+    
+            }
+        } else {
+            response.status(400); 
+        }
+    } else {
+        response.status(403);
+    }
+	return response;
+}
+
+
+
 	
 	
 	private String criptografia(String senha) {
