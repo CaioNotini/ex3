@@ -11,8 +11,8 @@ import service.*;
 import model.*;
 
 public class Aplicacao {
-    private static UserService userService;
-    private static ReceitasService receitasService;
+    private static UserService userService = new UserService();
+    private static ReceitasService receitasService = new ReceitasService();
 
     public static void main(String[] args) {
         
@@ -37,7 +37,7 @@ public class Aplicacao {
         get("/mercado", (request,response)-> mercado(request,response), engine);
 
 
-        get("/receitas", (request,response)-> receitas(request,response), engine);
+        get("/receita/:id", (request,response)-> receita(request,response), engine);
 
 
         get("/gerador", (request,response)-> gerador(request,response), engine);
@@ -63,9 +63,26 @@ public class Aplicacao {
 
     public static ModelAndView index(Request request, Response response){
         HashMap<String,Object> model=new HashMap<>();
-        
+        ReceitasDAO receitasDAO = new ReceitasDAO();
+        Receitas rc = receitasService.exibirReceitas(1);
+        model.put("receita", rc);
+
         return new ModelAndView(model, "templates/index.vm");
     }
+
+    
+     
+    public static ModelAndView receita(Request request, Response response) {
+		HashMap<String, Object> model = new HashMap<>();
+        ReceitasDAO receitasDAO = new ReceitasDAO();
+
+        int id = Integer.parseInt(request.params(":id"));
+        
+        Receitas rc = receitasService.exibirReceitas(id);
+        model.put("receita", rc);
+
+		return new ModelAndView(model, "templates/receita.vm");
+	}
 
     public static ModelAndView profile(Request request, Response response) {
         HashMap<String, Object> model = new HashMap<>();    
@@ -91,12 +108,6 @@ public class Aplicacao {
 		return new ModelAndView(model, "paginas/mercado.html");
 	}
 
-     
-    public static ModelAndView receitas(Request request, Response response) {
-		HashMap<String, Object> model = new HashMap<>();
-
-		return new ModelAndView(model, "paginas/receitas.html");
-	}
 
     public static ModelAndView gerador(Request request, Response response) {
 		HashMap<String, Object> model = new HashMap<>();

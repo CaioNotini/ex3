@@ -68,10 +68,10 @@
           "
         >
           <a href="/index" style="text-decoration: none">BH Súde </a
-          ><a style="text-decoration: none" href="/sobremesas">> Sobremesas</a>
-          <b> > Brownie sem Glúten</b>
+          ><a style="text-decoration: none" href="/sobremesas">> $receita.getHorario()</a>
+          <b>> $receita.getNome()</b>
         </p>
-        <h1>Brownie Sem Glúten</h1>
+        <h1>$receita.getNome()</h1>
       </div>
     </div>
 
@@ -96,7 +96,7 @@
         class="video"
         width="750"
         height="550"
-        src="https://www.youtube.com/embed/DNhCuNwR-aM"
+        src="https://www.youtube.com/embed/$receita.getCodigoVideo()"
         frameborder="0"
         allow="accelerometer; autoplay; fullscreen; clipboard-write; encrypted-media; gyroscope; picture-in"
       ></iframe>
@@ -104,18 +104,18 @@
     <div class="info">
       <div class="info-text">
         <div class="item">
-          <p>35 min</p>
+          <p>$receita.getTempo() min</p>
         </div>
         <div class="item">
           <i class="far fa-clock" style="margin-top: 6px; margin-left: 5px"></i>
-          <p>Baixo</p>
+          <p>$receita.getTipoReceita()</p>
         </div>
         <div class="item">
           <i
             class="fas fa-money-bill"
             style="margin-left: 4px; margin-top: 6px"
           ></i>
-          <p>Fácil</p>
+          <p>$receita.getTotalCalorias() kcal</p>
         </div>
         <i
           class="fas fa-utensils"

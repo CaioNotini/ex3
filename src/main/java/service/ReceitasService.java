@@ -14,8 +14,8 @@ import java.math.*;
 public class ReceitasService {
     ReceitasDAO receitasDAO = new ReceitasDAO();
 
-    public Receitas exibirReceitas(){
-        return receitasDAO.getReceitaById(1);
+    public Receitas exibirReceitas(int id){
+        return receitasDAO.getReceitaById(id);
 
     }
     
