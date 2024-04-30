@@ -37,7 +37,7 @@ public class Aplicacao {
         get("/mercado", (request,response)-> mercado(request,response), engine);
 
 
-        get("/receita/:id", (request,response)-> receita(request,response), engine);
+        get("/detalhes/:id", (request,response)-> receita(request,response), engine);
 
 
         get("/gerador", (request,response)-> gerador(request,response), engine);
@@ -81,7 +81,7 @@ public class Aplicacao {
         Receitas rc = receitasService.exibirReceitas(id);
         model.put("receita", rc);
 
-		return new ModelAndView(model, "templates/receita.vm");
+		return new ModelAndView(model, "templates/detalhes.vm");
 	}
 
     public static ModelAndView profile(Request request, Response response) {
