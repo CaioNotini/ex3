@@ -191,7 +191,7 @@
     </div>
 
     <div class="r">
-      <a href="/detalhes/$receita.getId_receita()">
+      <a href="/receita/$receita.getId_receita()">
         <div class="receitas">
           <iframe
             class="video"

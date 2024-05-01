@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="assets/css/navbar.css"
+    />
+    <title>BH Saúde</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+      crossorigin="anonymous"
+    />
+
+    <!-- Fontes -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic"
+      rel="stylesheet"
+    />
+
+    <!------ FontAwesome ------->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+  </head>
+
+  <header>
+    <a href="/index" style="color: #000; text-decoration: none">
+      <div class="logo">BH Saúde</div>
+    </a>
+    <input type="checkbox" id="nav_check" hidden />
+    <nav>
+      <ul>
+        <li>
+          <a href="/index" class="">Home</a>
+        </li>
+        <li>
+          <a href="" class="active">Receitas</a>
+        </li>
+        <li>
+          <a href="/gerador" class="">Crie sua Dieta</a>
+        </li>
+        <li>
+          <a href="/profile">Conta</a>
+        </li>
+        <li></li>
+        <li>
+          <a class="carrinho" href="/mercado"
+            ><i class="fa fa-shopping-cart"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <label for="nav_check" class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </label>
+  </header>
+
+  <body>
+    <div class="overlay hidden"></div>
+
+    <div class="box" style="margin-top: 0px">
+      <div class="texto" style="margin-top: 0px">
+        <p style="font-size: small; margin-bottom: -5px">
+          <a
+            href="/index"
+            class="b"
+            style="text-decoration: none; color: #bab9b998"
+            >BH Saúde </a
+          >> Alimentos
+        </p>
+        <h1>Alimentos</h1>
+        <h5 style="margin-left: 200px; margin-right: 200px; font-size: 3vh">
+          Informações confiáveis sobre os alimentos mais comuns, incluindo
+          benefícios para a saúde, informações nutricionais, quantidades...
+        </h5>
+      </div>
+    </div>
+
+    <div class="centralized-container">
+      <div class="caixa">
+        <div class="caixa-dentro"></div>
+        <button type="button" class="adicionar btn-primary">
+          <i class="fas fa-plus"></i> Adicionar Itens
+        </button>
+      </div>
+    </div>
+
+    <div class="add adjust">
+      <form action="/alimentos" method="post" class="formulario">
+        <div class="cont">
+          <p class="title">Ingrediente</p>
+          <button
+            type="button"
+            class="cancel"
+            style="border: none; background-color: transparent"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <p class="message">Quantidade padronizada em 100g</p>
+
+        <div class="flex">
+          <label for="nome">
+            <input
+              name="nome"
+              required=""
+              placeholder=""
+              type="text"
+              step="0.01"
+              class="input"
+              id="nome"
+            />
+            <span>Nome</span>
+          </label>
+
+          <label for="calorias">
+            <input
+              name="calorias"
+              required=""
+              placeholder=""
+              type="number"
+              step="0.01"
+              class="input"
+              id="calorias"
+              style="width:20rem"
+            />
+            <span>Calorias</span>
+          </label>
+        </div>
+
+        <div class="flex">
+          <label for="proteinas">
+            <input
+              name="proteinas"
+              required=""
+              placeholder=""
+              type="number"
+              step="0.01"
+              class="input"
+              id="proteinas"
+            />
+            <span>Proteína</span>
+          </label>
+
+          <label for="gorduras">
+            <input
+              name="gorduras"
+              required=""
+              placeholder=""
+              type="number"
+              step="0.01"
+              class="input"
+              id="gorduras"
+            />
+            <span>Gordura</span>
+          </label>
+
+          <label for="carboidratos">
+            <input
+              name="carboidratos"
+              required=""
+              placeholder=""
+              type="number"
+              step="0.01"
+              class="input"
+              id="carboidratos"
+            />
+            <span>Carboidrato</span>
+          </label>
+        </div>
+
+        <button type="submit" class="submit">Criar</button>
+      </form>
+    </div>
+    <div class="overlay hidden"></div>
+  </body>
+  <style>
+    /* Forms */
+    .hidden {
+      display: none;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(3px);
+      z-index: 5;
+    }
+
+    .add {
+      z-index: 10;
+    }
+
+    .formulario {
+      position: fixed;
+      left: 33%;
+      bottom: 70vh;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 550px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 20px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .cont {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .title {
+      font-size: 28px;
+      color: royalblue;
+      font-weight: 600;
+      letter-spacing: -1px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding-left: 30px;
+    }
+
+    .title::before,
+    .title::after {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      border-radius: 50%;
+      left: 0px;
+      background-color: royalblue;
+    }
+
+    .title::before {
+      width: 18px;
+      height: 18px;
+      background-color: royalblue;
+    }
+
+    .title::after {
+      width: 18px;
+      height: 18px;
+      animation: pulse 1s linear infinite;
+    }
+
+    .message,
+    .signin {
+      color: rgba(88, 87, 87, 0.822);
+      font-size: 14px;
+    }
+
+    .signin {
+      text-align: center;
+    }
+
+    .signin a {
+      color: royalblue;
+    }
+
+    .signin a:hover {
+      text-decoration: underline royalblue;
+    }
+
+    .flex {
+      display: flex;
+      width: 100%;
+      gap: 6px;
+    }
+
+    .formulario label {
+      position: relative;
+    }
+
+    .formulario label .input {
+      width: 100%;
+      padding: 10px 10px 20px 10px;
+      outline: 0;
+      border: 1px solid rgba(105, 105, 105, 0.397);
+      border-radius: 10px;
+    }
+
+    .formulario label .input + span {
+      position: absolute;
+      left: 10px;
+      top: 15px;
+      color: grey;
+      font-size: 0.9em;
+      cursor: text;
+      transition: 0.3s ease;
+    }
+
+    .formulario label .input:placeholder-shown + span {
+      top: 15px;
+      font-size: 0.9em;
+    }
+
+    .formulario label .input:focus + span,
+    .formulario label .input:valid + span {
+      top: 30px;
+      font-size: 0.7em;
+      font-weight: 600;
+    }
+
+    .formulario label .input:valid + span {
+      color: green;
+    }
+
+    .submit {
+      border: none;
+      outline: none;
+      background-color: royalblue;
+      padding: 10px;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 16px;
+      transform: 0.3s ease;
+    }
+
+    .submit:hover {
+      background-color: rgb(56, 90, 194);
+    }
+
+    @keyframes pulse {
+      from {
+        transform: scale(0.9);
+        opacity: 1;
+      }
+
+      to {
+        transform: scale(1.8);
+        opacity: 0;
+      }
+    }
+
+    /* Caixa Ingredientes */
+    .centralized-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      position: relative;
+    }
+
+    .caixa {
+      height: 650px;
+      width: 70%;
+      max-width: 700px;
+      background-color: #f3f3f3;
+      border-radius: 2px;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      align-items: end;
+    }
+
+    .caixa-dentro {
+      height: 550px;
+      width: 71.4%;
+      background-color: white;
+      border: 2px solid dodgerblue;
+      border-radius: 4px;
+      margin-bottom: 0.5rem;
+      margin-right: 0.7rem;
+    }
+
+    .adicionar {
+      color: dodgerblue;
+      margin-bottom: 0.7rem;
+      display: block;
+      border: none;
+      background-color: transparent;
+      margin-right: 0.7rem;
+    }
+
+    .adicionar:hover {
+      border-bottom: 2px solid dodgerblue;
+      opacity: 0.5;
+    }
+  </style>
+  <script>
+    let form = document.querySelector(".add");
+    let btnAdd = document.querySelector(".adicionar");
+    let btnCriar = document.querySelector(".submit");
+    let overlay = document.querySelector(".overlay");
+    let btnCancel = document.querySelector(".cancel");
+
+    form.classList.add("hidden");
+
+    btnAdd.addEventListener("click", function () {
+      form.classList.remove("hidden");
+      overlay.classList.remove("hidden");
+    });
+
+    btnCancel.addEventListener("click", function () {
+      form.classList.add("hidden");
+      overlay.classList.add("hidden");
+    });
+  </script>
+</html>

@@ -13,6 +13,7 @@ import model.*;
 public class Aplicacao {
     private static UserService userService = new UserService();
     private static ReceitasService receitasService = new ReceitasService();
+    private static IngredientesService ingredientesService = new IngredientesService();
 
     public static void main(String[] args) {
         
@@ -41,6 +42,13 @@ public class Aplicacao {
 
 
         get("/gerador", (request,response)-> gerador(request,response), engine);
+
+        get("/alimentos", (request,response)-> alimentos(request,response), engine);
+        post("/alimentos", (request, response) -> ingredientesService.register(request, response));
+
+
+
+        
    
     }
 
@@ -113,5 +121,11 @@ public class Aplicacao {
 		HashMap<String, Object> model = new HashMap<>();
 
 		return new ModelAndView(model, "paginas/gerador.html");
+	}
+
+     public static ModelAndView alimentos(Request request, Response response) {
+		HashMap<String, Object> model = new HashMap<>();
+
+		return new ModelAndView(model, "templates/alimentos.vm");
 	}
 }

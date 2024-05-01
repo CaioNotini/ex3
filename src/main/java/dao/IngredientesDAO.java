@@ -12,29 +12,29 @@ public class IngredientesDAO extends DAO{
         conectar();
     }
 
-    public boolean insert(Ingredientes ingredientes){
-        boolean status = false;
+    public boolean insert(Ingredientes ingredientes) {
+    boolean status = false;
 
-        try{
-            String sql = "INSERT INTO ingrediente (id_ingrediente,nome,calorias,proteinas,gorduras,carboidratos) VALUES (?,?,?,?,?,?)";
+    try {
+        String sql = "INSERT INTO ingrediente (nome, calorias, proteinas, gorduras, carboidratos) VALUES (?, ?, ?, ?, ?)";
 
-            PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+        PreparedStatement preparedStatement = conexao.prepareStatement(sql);
 
-            preparedStatement.setInt(1, ingredientes.getIdIngredientes());
-            preparedStatement.setString(2, ingredientes.getNome());
-            preparedStatement.setFloat(3, ingredientes.getCalorias());;
-            preparedStatement.setFloat(4, ingredientes.getProteinas());
-            preparedStatement.setFloat(5, ingredientes.getGordura());
-            preparedStatement.setFloat(6, ingredientes.getCarboidratos());
+        preparedStatement.setString(1, ingredientes.getNome());
+        preparedStatement.setFloat(2, ingredientes.getCalorias());
+        preparedStatement.setFloat(3, ingredientes.getProteinas());
+        preparedStatement.setFloat(4, ingredientes.getGordura());
+        preparedStatement.setFloat(5, ingredientes.getCarboidratos());
 
-            preparedStatement.executeUpdate();
-			preparedStatement.close();
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
 
-            status = true;
-        }  catch (SQLException e) {
-			System.err.println(e);
-		}
-        return status;
+        status = true;
+    } catch (SQLException e) {
+        System.err.println("Erro ao inserir ingrediente: " + e.getMessage());
     }
+    return status;
+}
+
 }
 

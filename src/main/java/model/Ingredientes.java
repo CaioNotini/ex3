@@ -21,6 +21,14 @@ public class Ingredientes {
 
     }
 
+        public Ingredientes(String nome, float calorias, float proteinas, float gordura, float carboidratos) {
+        this.nome = nome;
+        this.calorias = calorias;
+        this.proteinas = proteinas;
+        this.gordura = gordura;
+        this.carboidratos = carboidratos;
+    }
+
     public Ingredientes(int idIngredientes,String nome, float calorias, int gordura, int carboidratos){
         this.idIngredientes = idIngredientes;
         this.nome = nome;
@@ -56,11 +64,11 @@ public class Ingredientes {
         this.nome=nome;
     }
 
-      public Float getCalorias(){
+      public float getCalorias(){
         return calorias;
     }
 
-    public void setCalorias(Float calorias){
+    public void setCalorias(float calorias){
         this.calorias=calorias;
     }
 
@@ -91,27 +99,30 @@ public class Ingredientes {
 
     
 	public void Ler(String linha){
-		int j = 0;
-		char c = ';';
-		int tmp = 0;
-		String vetorStr[] = new String[6];
-		for(int i=0; i<linha.length(); i++){
-			if(linha.charAt(i) == c) {
-				vetorStr[j] =linha.substring(tmp, i);
-				tmp = i+1;
-				j++;
-			}
-		}
-		vetorStr[5] =linha.substring(tmp, linha.length());
+    int j = 0;
+    char c = ';';
+    int tmp = 0;
+    String vetorStr[] = new String[5];
+    for(int i=0; i<linha.length(); i++){
+        if(linha.charAt(i) == c) {
+            vetorStr[j] =linha.substring(tmp, i);
+            tmp = i+1;
+            j++;
+        }
+    }
+    vetorStr[4] =linha.substring(tmp, linha.length());
 
-		setIdIngredientes(Integer.parseInt(vetorStr[0]));
-		setNome(vetorStr[1]);
-		setCalorias(Float.parseFloat(vetorStr[2]));
-		setProteinas(Float.parseFloat(vetorStr[3]));
-        setGordura(Float.parseFloat(vetorStr[4]));
-		setCarboidratos(Float.parseFloat(vetorStr[5]));
-		
-	}
+    if (vetorStr[0] != null && vetorStr[1] != null && vetorStr[2] != null && vetorStr[3] != null && vetorStr[4] != null) {
+        setNome(vetorStr[0]);
+        setCalorias(Float.parseFloat(vetorStr[1]));
+        setProteinas(Float.parseFloat(vetorStr[2]));
+        setGordura(Float.parseFloat(vetorStr[3]));
+        setCarboidratos(Float.parseFloat(vetorStr[4]));
+    } else {
+        System.out.println("Erro: linha incompleta");
+    }
+}
+
 
     public static ArrayList<Ingredientes> lerArquivo(){
          ArrayList<Ingredientes> Ingredientes = new ArrayList<>();
@@ -135,8 +146,9 @@ public class Ingredientes {
 
         return Ingredientes;
     }
-
-    public static void main(String args[]){
+    
+/* 
+        public static void main(String args[]){
                  IngredientesDAO dao = new IngredientesDAO();
 
         ArrayList<Ingredientes> ingredientes = lerArquivo();
@@ -144,5 +156,8 @@ public class Ingredientes {
             dao.insert(ingrediente);
         }
     }
+*/
+
 }
+
 
