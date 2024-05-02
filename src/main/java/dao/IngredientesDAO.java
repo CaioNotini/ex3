@@ -1,6 +1,10 @@
 package dao;
 
 import java.sql.*;
+import java.util.List;
+import java.util.ArrayList;
+
+
 import model.User;
 import model.Perfil;
 import model.Calorias;
@@ -35,6 +39,34 @@ public class IngredientesDAO extends DAO{
     }
     return status;
 }
+
+public List<Ingredientes> getIngrediente(){
+    List<Ingredientes> ingredientes = new ArrayList<>();
+
+    try{
+        String sql = "SELECT * FROM ingrediente";
+        PreparedStatement ps = conexao.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()) {
+            Ingredientes ingrediente = new Ingredientes();
+            ingrediente.setIdIngredientes(rs.getInt("id_ingrediente"));
+            ingrediente.setNome(rs.getString("nome"));
+            ingrediente.setCalorias(rs.getFloat("calorias"));
+            ingrediente.setProteinas(rs.getFloat("proteinas"));
+            ingrediente.setGordura(rs.getFloat("gorduras"));
+            ingrediente.setCarboidratos(rs.getFloat("carboidratos"));
+
+            ingredientes.add(ingrediente);
+        }
+
+    } catch (SQLException e) {
+        System.err.println(e);
+    }
+
+    return ingredientes;
+}
+    
 
 }
 

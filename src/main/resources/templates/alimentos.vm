@@ -4,10 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="assets/css/navbar.css"
-    />
+    <link rel="stylesheet" href="assets/css/navbar.css" />
     <title>BH Saúde</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
@@ -91,15 +88,50 @@
         </h5>
       </div>
     </div>
-
     <div class="centralized-container">
-      <div class="caixa">
-        <div class="caixa-dentro"></div>
+    <div class="caixa">
+      <div class="search">
+          <input type="text" class="search__input" id="searchInput" onkeyup="searchFunction()" placeholder="Type your text">
+          <button class="search__button">
+            <svg class="search__icon" aria-hidden="true" viewBox="0 0 24 24">
+              <g>
+                <path d="M21.53 20.47l-3.66-3.66C19.195 15.24 20 13.214 20 11c0-4.97-4.03-9-9-9s-9 4.03-9 9 4.03 9 9 9c2.215 0 4.24-.804 5.808-2.13l3.66 3.66c.147.146.34.22.53.22s.385-.073.53-.22c.295-.293.295-.767.002-1.06zM3.5 11c0-4.135 3.365-7.5 7.5-7.5s7.5 3.365 7.5 7.5-3.365 7.5-7.5 7.5-7.5-3.365-7.5-7.5z"></path>
+              </g>
+          </svg>
+    </button>
+</div>
+        <div class="caixa-dentro" id="ingredientesList">
+            #if($ingrediente.size() > 0)
+                #foreach($ingrediente in $ingrediente)
+                    <div class="flex ingrediente" style="display: none;">
+                        <div style="margin-left: 10px">
+                            <i class="fa-regular fa-square-check"></i>
+                        </div>
+                        <div class="outros">
+                            <p class="nome">$ingrediente.nome</p>
+                            <div style="margin-top: 5px">
+                                <i class="fa-solid fa-utensils" style="font-size: small; margin-top: 3.5px; margin-right: 2px"></i>
+                                <p>$ingrediente.calorias kcal</p>
+                                <i class="fa-solid fa-egg" style="font-size: small; margin-top: 3.5px; margin-right: 2px"></i>
+                                <p>$ingrediente.proteinas g</p>
+                                <i class="fa-solid fa-burger" style="font-size: small; margin-top: 3.5px; margin-right: 2px"></i>
+                                <p>$ingrediente.gordura g</p>
+                                <i class="fa-solid fa-bread-slice" style="margin-top: 3.5px; margin-right: 2px; font-size: small"></i>
+                                <p>$ingrediente.carboidratos g</p>
+                            </div>
+                        </div>
+                    </div>
+                #end
+            #else
+                <p>Nenhum ingrediente encontrado.</p>
+            #end
+        </div>
         <button type="button" class="adicionar btn-primary">
-          <i class="fas fa-plus"></i> Adicionar Itens
+            <i class="fas fa-plus"></i> Adicionar Itens
         </button>
-      </div>
     </div>
+</div>
+
 
     <div class="add adjust">
       <form action="/alimentos" method="post" class="formulario">
@@ -138,7 +170,7 @@
               step="0.01"
               class="input"
               id="calorias"
-              style="width:20rem"
+              style="width: 20rem"
             />
             <span>Calorias</span>
           </label>
@@ -399,7 +431,98 @@
       border-bottom: 2px solid dodgerblue;
       opacity: 0.5;
     }
+
+    /* card ingrediente */
+
+    .ingrediente {
+      background-color: #f3f3f3;
+      margin-left: 0px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 2.5px;
+      margin-bottom: 2.5px;
+    }
+
+    .nome {
+      font-weight: bold;
+      font-size: medium !important;
+    }
+
+    .outros {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .outros p {
+      margin: 0;
+      margin-right: 20px;
+      font-size: small;
+    }
+
+    .outros div {
+      display: flex;
+      justify-content: space-between;
+    }
+
+
+    /* Nava bar*/
+    .search {
+    margin-top:15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  margin:5px;
+}
+
+.search__input {
+  font-family: inherit;
+  font-size: inherit;
+  background-color: white;
+  border: none;
+  color: #646464;
+  padding: 0.7rem 1rem;
+  border-radius: 30px;
+  width: 25rem;
+  transition: all ease-in-out .5s;
+  margin-right: -2rem;
+}
+
+.search__input:hover, .search__input:focus {
+  box-shadow: 0 0 1em #00000013;
+}
+
+.search__input:focus {
+  outline: none;
+  background-color: #f0eeee;
+}
+
+.search__input::-webkit-input-placeholder {
+  font-weight: 100;
+  color: #ccc;
+}
+
+.search__input:focus + .search__button {
+  background-color: #f0eeee;
+}
+
+.search__button {
+  border: none;
+  background-color: white;
+  margin-top: .1em;
+}
+
+.search__button:hover {
+  cursor: pointer;
+}
+
+.search__icon {
+  height: 1.3em;
+  width: 1.3em;
+  fill: #b4b4b4;
+}
   </style>
+
   <script>
     let form = document.querySelector(".add");
     let btnAdd = document.querySelector(".adicionar");
@@ -419,4 +542,41 @@
       overlay.classList.add("hidden");
     });
   </script>
+  <script>
+    function searchFunction() {
+        var input, filter, div, ingredientes, nome, i, txtValue;
+        input = document.getElementById('searchInput');
+        filter = input.value.toUpperCase();
+        div = document.getElementById('ingredientesList');
+        ingredientes = div.getElementsByClassName('flex ingrediente');
+        var count = 0; 
+
+        if (filter === '') {
+            for (i = 0; i < ingredientes.length; i++) {
+                if (count < 10) {
+                    ingredientes[i].style.display = '';
+                    count++;
+                } else {
+                    ingredientes[i].style.display = 'none';
+                }
+            }
+        } else {
+            for (i = 0; i < ingredientes.length; i++) {
+                nome = ingredientes[i].getElementsByClassName('nome')[0];
+                txtValue = nome.textContent || nome.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    ingredientes[i].style.display = '';
+                    count++; 
+                    } else {
+                    ingredientes[i].style.display = 'none';
+                }
+
+                if (count >= 10) {
+                    break;
+                }
+            }
+        }
+    }
+</script>
+
 </html>

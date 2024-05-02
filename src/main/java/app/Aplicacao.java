@@ -4,6 +4,7 @@ import spark.*;
 import spark.template.velocity.VelocityTemplateEngine;
 import java.util.HashMap;
 import static spark.Spark.*;
+import java.util.*;
 
 
 import dao.*;
@@ -38,7 +39,7 @@ public class Aplicacao {
         get("/mercado", (request,response)-> mercado(request,response), engine);
 
 
-        get("/detalhes/:id", (request,response)-> receita(request,response), engine);
+        get("/detalhes/:id", (request,response)-> detalhes(request,response), engine);
 
 
         get("/gerador", (request,response)-> gerador(request,response), engine);
@@ -80,7 +81,7 @@ public class Aplicacao {
 
     
      
-    public static ModelAndView receita(Request request, Response response) {
+    public static ModelAndView detalhes(Request request, Response response) {
 		HashMap<String, Object> model = new HashMap<>();
         ReceitasDAO receitasDAO = new ReceitasDAO();
 
@@ -125,7 +126,12 @@ public class Aplicacao {
 
      public static ModelAndView alimentos(Request request, Response response) {
 		HashMap<String, Object> model = new HashMap<>();
+        IngredientesDAO ingredientesDAO = new IngredientesDAO();
+        List<Ingredientes> in = ingredientesService.exibir();
+        model.put("ingrediente", in);
 
 		return new ModelAndView(model, "templates/alimentos.vm");
 	}
+
+
 }
