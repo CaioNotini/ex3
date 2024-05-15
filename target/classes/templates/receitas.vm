@@ -586,4 +586,7 @@ function filtrarIngredientes(inputElement, ulElement) {
     }
   });
 
-  ulElement.style.display = 'block'; // Mostra a 
+  ulElement.style.display = 'block'; // Mostra a lista com os resultados
+}
+  </script>
+</html>
