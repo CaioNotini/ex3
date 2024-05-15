@@ -2,7 +2,7 @@ package app;
 
 import spark.*;
 import spark.template.velocity.VelocityTemplateEngine;
-import java.util.HashMap;
+
 import static spark.Spark.*;
 import java.util.*;
 
@@ -15,6 +15,7 @@ public class Aplicacao {
     private static UserService userService = new UserService();
     private static ReceitasService receitasService = new ReceitasService();
     private static IngredientesService ingredientesService = new IngredientesService();
+    private static AvaliacaoService avaliacaoService = new AvaliacaoService();
 
     public static void main(String[] args) {
         
@@ -40,6 +41,11 @@ public class Aplicacao {
 
 
         get("/detalhes/:id", (request,response)-> detalhes(request,response), engine);
+        post("/avalie/:id", (request, response) -> {
+            int id = Integer.parseInt(request.params(":id")); 
+            return avaliacaoService.register(request, response, id);
+        });
+
 
 
         get("/gerador", (request,response)-> gerador(request,response), engine);
@@ -47,6 +53,11 @@ public class Aplicacao {
         get("/alimentos", (request,response)-> alimentos(request,response), engine);
         post("/alimentos", (request, response) -> ingredientesService.register(request, response));
 
+        
+        get("/receitas", (request,response)-> receitas(request,response), engine);
+
+
+        
 
 
         
@@ -70,14 +81,14 @@ public class Aplicacao {
 		return new ModelAndView(model, "paginas/login.html");
 	}
 
-    public static ModelAndView index(Request request, Response response){
-        HashMap<String,Object> model=new HashMap<>();
-        ReceitasDAO receitasDAO = new ReceitasDAO();
-        Receitas rc = receitasService.exibirReceitas(1);
-        model.put("receita", rc);
+        public static ModelAndView index(Request request, Response response){
+            HashMap<String,Object> model=new HashMap<>();
+            ReceitasDAO receitasDAO = new ReceitasDAO();
+            List<Receitas> rc = receitasService.exibirReceitas();
+            model.put("receita", rc);
 
-        return new ModelAndView(model, "templates/index.vm");
-    }
+            return new ModelAndView(model, "templates/index.vm");
+        }
 
     
      
@@ -132,6 +143,23 @@ public class Aplicacao {
 
 		return new ModelAndView(model, "templates/alimentos.vm");
 	}
+
+    public static ModelAndView receitas(Request request, Response response) {
+		HashMap<String, Object> model = new HashMap<>();
+       
+        ReceitasDAO receitasDAO = new ReceitasDAO();
+        List<Receitas> rc = receitasService.exibirReceitas();
+        model.put("receita", rc);
+
+
+        IngredientesDAO ingredientesDAO = new IngredientesDAO();
+        List<Ingredientes> in = ingredientesService.exibir();
+        model.put("ingrediente", in);
+
+		return new ModelAndView(model, "templates/receitas.vm");
+	}
+
+   
 
 
 }

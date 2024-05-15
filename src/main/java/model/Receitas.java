@@ -1,6 +1,5 @@
 package model;
 
-import dao.*;
 public class Receitas {
     private int id_receita;
     private String nome;

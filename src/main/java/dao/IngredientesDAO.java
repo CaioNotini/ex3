@@ -44,7 +44,7 @@ public List<Ingredientes> getIngrediente(){
     List<Ingredientes> ingredientes = new ArrayList<>();
 
     try{
-        String sql = "SELECT * FROM ingrediente";
+        String sql = "SELECT * FROM ingrediente"; //trocar o SELECT *
         PreparedStatement ps = conexao.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 

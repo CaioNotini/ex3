@@ -87,30 +87,28 @@
       </div>
     </div>
 
-    <form class="form">
-      <p class="title">Cadastro</p>
+    <form class="form" action="/receitas" method="post">
+      <p class="title">Receita</p>
       <p class="message">Cadastre sua receita com suas informações</p>
 
       <label>
-        <input required="" placeholder="" type="text" class="input" />
+        <input required="" placeholder="" type="text" class="input" id="nome" id="nome"/>
         <span>Nome</span>
       </label>
 
       <div class="flex">
         <label>
-          <input required="" placeholder="" type="text" class="input" />
+          <input required="" placeholder="" type="text" class="input" id="video" name="video"/>
           <span>Código Vídeo</span>
         </label>
 
         <label>
-          <input required="" placeholder="" type="text" class="input" />
+          <input required="" placeholder="" type="text" class="input" id="tempo" name="tempo"/>
           <span>Tempo (min)</span>
         </label>
-      </div>
 
-      <div class="flex">
         <label>
-          <select required class="input" style="width: 153px">
+          <select required class="input" style="width: 153px" name="tipo" id="tipo">
             <option value="" disabled selected>Tipo</option>
             <option value="Tudo">Livre</option>
             <option value="Vegano">Vegano</option>
@@ -122,9 +120,9 @@
         </label>
 
         <label>
-          <select required class="input">
+          <select required class="input" name="horario" id="horario">
             <option value="" disabled selected>Horário</option>
-            <option value="Café">Café da Manhã</option>
+            <option value="Café">Café</option>
             <option value="Almoço">Almoço</option>
             <option value="Janta">Jantar</option>
             <option value="Lanche">Lanche</option>
@@ -134,15 +132,41 @@
       </div>
 
       <label>
-        <input
-          style="height: 100px"
+        <textarea
+          style="height: 150px"
           required=""
-          placeholder=""
+          placeholder="Descrição"
+          class="input"
+          id="descricao"
+          name="descricao"
+        ></textarea>
+      </label>
+
+    <div id="ingredientesContainer">
+      <div class="flex">
+      <label style="width:70%;">
+        <input
           type="text"
           class="input"
+          required=""
+          id="ingrediente"
+          name="ingrediente"
+          oninput="filtrarIngredientes(this, document.getElementById('listaDeIngredientes'))"
+          placeholder="Digite um ingrediente..."
         />
-        <span>Descrição</span>
+        <ul id="listaDeIngredientes" style="display: none;"></ul>
+
       </label>
+      <label>
+        <input required="" type="text" class="input" placeholder="quantidade" id="quantidade" name="quantidade"
+        />
+
+      </label>
+      </div>
+    </div>
+
+      <button  class="addCampo" type="button" onclick="adicionarIngrediente()">Adicionar Ingrediente</button>
+
       <button class="submit">Criar</button>
     </form>
   </body>
@@ -270,11 +294,13 @@
       display: flex;
       flex-direction: column;
       gap: 10px;
-      max-width: 350px;
+      width:100%;
+      max-width: 700px;
       background-color: #fff;
       padding: 20px;
       border-radius: 20px;
       position: relative;
+      margin: 0 auto;
     }
 
     .title {
@@ -399,5 +425,165 @@
         opacity: 0;
       }
     }
+
+    /* Lista Ingrediente */
+
+    #listaDeIngredientes {
+    list-style: none;
+    margin-top: 0;
+    padding: 0;
+    width: 100%;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: absolute;
+    background: white;
+}
+
+    #listaDeIngredientes li {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 1px solid #ccc;
+}
+
+    #listaDeIngredientes li:hover {
+    background-color: #f4f4f4;
+}
+
+.addCampo{
+    margin: 0 auto;
+    border:none;
+    background-color: transparent;
+    font-size: x-small;
+}
+
+.addCampo:hover{
+    opacity:0.5;
+    color:dodgerblue;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.remove-button {
+  position: absolute;
+  color:red;
+  right: 3px;
+  top: 5px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 12px;
+  height:25px;
+  width:25px;
+  border: 1px white;
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  border-radius: 50%;
+  background-color: white;
+  padding: 4px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); 
+  transition: all 0.3s ease; 
+}
+
+.remove-button:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4); 
+}
+
+.remove-button:focus {
+  outline: none; 
+    box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.5); 
+}
+
+
+
   </style>
-</html>
+    <script>
+        let ingredientes = [
+        #foreach($ingrediente in $ingrediente)
+        "$ingrediente.nome", 
+        #end
+    ];
+
+function adicionarIngrediente() {
+  var novoIngredienteDiv = document.createElement('div');
+  novoIngredienteDiv.className = 'flex';
+  novoIngredienteDiv.style.marginTop = '10px';
+
+  // Cria o campo de entrada para o ingrediente
+  var novoIngredienteLabel = document.createElement('label');
+  novoIngredienteLabel.style.width = '70%';
+  var novoIngredienteInput = document.createElement('input');
+  novoIngredienteInput.type = 'text';
+  novoIngredienteInput.className = 'input';
+  novoIngredienteInput.required = true;
+  novoIngredienteInput.placeholder = 'Digite um ingrediente...';
+  novoIngredienteInput.oninput = function() {
+    filtrarIngredientes(novoIngredienteInput, novoUl);
+  };
+  var novoUl = document.createElement('ul');
+  novoUl.style.display = 'none';
+  novoUl.id = 'listaDeIngredientes';
+
+  novoIngredienteLabel.appendChild(novoIngredienteInput);
+  novoIngredienteLabel.appendChild(novoUl);
+
+  // Cria o campo de entrada para a quantidade com o botão de remoção
+  var novaQuantidadeLabel = document.createElement('label');
+  var novaQuantidadeInput = document.createElement('input');
+  novaQuantidadeInput.type = 'text';
+  novaQuantidadeInput.className = 'input';
+  novaQuantidadeInput.required = true;
+  novaQuantidadeInput.placeholder = 'quantidade';
+
+  // Botão de remoção
+  var botaoRemover = document.createElement('button');
+  botaoRemover.type = 'button';
+  botaoRemover.className = 'remove-button';
+  botaoRemover.innerHTML = '<i class="fa-solid fa-trash"></i>';
+  botaoRemover.onclick = function() {
+    removerIngrediente(this);
+  };
+
+  novaQuantidadeLabel.appendChild(novaQuantidadeInput);
+  novaQuantidadeLabel.appendChild(botaoRemover);
+
+  // Adiciona os novos campos ao novo elemento div
+  novoIngredienteDiv.appendChild(novoIngredienteLabel);
+  novoIngredienteDiv.appendChild(novaQuantidadeLabel);
+
+  // Adiciona o novo elemento div ao contêiner de ingredientes
+  var ingredientesContainer = document.getElementById('ingredientesContainer');
+  ingredientesContainer.appendChild(novoIngredienteDiv);
+}
+
+function removerIngrediente(botao) {
+  var divParaRemover = botao.closest('.flex');
+  divParaRemover.parentNode.removeChild(divParaRemover);
+}
+
+function filtrarIngredientes(inputElement, ulElement) {
+  var input = inputElement.value.toUpperCase();
+  ulElement.innerHTML = '';  // Limpar a lista existente
+
+  if (!input) {
+    ulElement.style.display = 'none';
+    return;
+  }
+
+  // Suponha que 'ingredientes' seja um array com todos os ingredientes
+  ingredientes.forEach(function(ingrediente) {
+    if (ingrediente.toUpperCase().includes(input)) {
+      var li = document.createElement('li');
+      li.textContent = ingrediente;
+      li.onclick = function() {
+        inputElement.value = this.textContent; // Seleciona o ingrediente
+        ulElement.style.display = 'none'; // Esconde a lista após a seleção
+      };
+      ulElement.appendChild(li);
+    }
+  });
+
+  ulElement.style.display = 'block'; // Mostra a 

@@ -120,7 +120,7 @@ public class UserService {
 	
 		if (currentUser == null) {
 			response.redirect("/login");
-			return null; // Interrompe a execução aqui
+			return null; 
 		}
 	
 		// Recupera dados do perfil do formulário
