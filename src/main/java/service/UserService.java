@@ -32,10 +32,11 @@ public class UserService {
 		User user = new User(nome, email, senha);
 
 		if (userDAO.insert(user) == true) {
-        request.session().attribute("message", "Usuário cadastrado com sucesso!");
+        request.session().attribute("flash", "Usuário cadastrado com sucesso!");
 			response.redirect("/login");
 		} else {
-        request.session().attribute("message", "Erro ao cadastrar usuário");
+        request.session().attribute("flash", "Erro ao cadastrar usuário");
+		response.redirect("/register");
 		}
 
 		return response;
@@ -144,7 +145,7 @@ public class UserService {
 		}
 	
 		if (insertORupdate) {
-			response.status(200); 
+			response.status(200);
 		} else {
 			response.status(500); // 
 			return response; 
@@ -167,11 +168,12 @@ public class UserService {
 			KGInsertORupdate = userDAO.updateCalories(calorias);
 		} else {
 			KGInsertORupdate = userDAO.insertCalories(calorias);
-			response.redirect("/index");
+			request.session().attribute("flash", "Informações atualizadas com sucesso!");
+			response.redirect("/profile");
 		}
 	
 		if (!KGInsertORupdate) {
-			response.status(500); // 
+			response.status(500); 
 		}
 	
 		return response; 

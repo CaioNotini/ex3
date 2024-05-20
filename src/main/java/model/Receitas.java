@@ -26,6 +26,17 @@ public class Receitas {
         this.id_usuario = id_usuario;
     }
 
+        public Receitas(String nome, String codigoVideo, String descricao, int tempo, String tipoReceita, String horario, float totalCalorias, int id_usuario) {
+        this.nome = nome;
+        this.codigoVideo = codigoVideo;
+        this.descricao = descricao;
+        this.tempo = tempo;
+        this.tipoReceita = tipoReceita;
+        this.horario = horario;
+        this.totalCalorias = totalCalorias;
+        this.id_usuario = id_usuario;
+    }
+
     public int getId_receita() {
         return id_receita;
     }

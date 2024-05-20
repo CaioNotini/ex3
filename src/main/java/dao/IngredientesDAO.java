@@ -66,6 +66,42 @@ public List<Ingredientes> getIngrediente(){
 
     return ingredientes;
 }
+
+public float getCalorias(String nome){
+            float calorias = 0;
+
+            try{
+                String sql = "SELECT calorias FROM ingrediente WHERE nome = ?";
+
+                PreparedStatement ps = conexao.prepareStatement(sql);
+
+                ps.setString(1, nome);
+
+                ResultSet rs = ps.executeQuery();
+                if(rs.next()){
+            calorias = rs.getFloat("calorias");
+
+                }
+            } catch (SQLException e){
+                System.err.println(e);
+            }
+
+            return calorias;
+        }
+
+    public int getId(String nome){
+        String sql = "SELECT id_ingrediente FROM ingrediente WHERE nome = ?";
+            try (PreparedStatement ps = conexao.prepareStatement(sql)) {
+                ps.setString(1, nome);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    return rs.getInt("id_ingrediente");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        return 0; 
+    }
     
 
 }

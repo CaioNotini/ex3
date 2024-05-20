@@ -92,7 +92,7 @@
       <p class="message">Cadastre sua receita com suas informações</p>
 
       <label>
-        <input required="" placeholder="" type="text" class="input" id="nome" id="nome"/>
+        <input required="" placeholder="" type="text" class="input" id="nome" name="nome"/>
         <span>Nome</span>
       </label>
 
@@ -144,7 +144,7 @@
 
     <div id="ingredientesContainer">
       <div class="flex">
-      <label style="width:70%;">
+      <label style="width:60%;">
         <input
           type="text"
           class="input"
@@ -157,11 +157,19 @@
         <ul id="listaDeIngredientes" style="display: none;"></ul>
 
       </label>
-      <label>
-        <input required="" type="text" class="input" placeholder="quantidade" id="quantidade" name="quantidade"
+      <label style="width:15%">
+        <input required="" type="number" class="input" placeholder=" g/ml " id="quantidade" name="quantidade"
         />
 
       </label>
+      <label style="width:35%">
+        <input type="text" class="input" placeholder="Observação" id="observacao" name="observacao"
+        />
+        <button type="button" class="remove-button" onclick="removerIngrediente(this)">
+        <i class="fa-solid fa-trash"></i>
+      </button>
+      </label>
+      
       </div>
     </div>
 
@@ -506,7 +514,6 @@
         "$ingrediente.nome", 
         #end
     ];
-
 function adicionarIngrediente() {
   var novoIngredienteDiv = document.createElement('div');
   novoIngredienteDiv.className = 'flex';
@@ -514,12 +521,13 @@ function adicionarIngrediente() {
 
   // Cria o campo de entrada para o ingrediente
   var novoIngredienteLabel = document.createElement('label');
-  novoIngredienteLabel.style.width = '70%';
+  novoIngredienteLabel.style.width = '60%';
   var novoIngredienteInput = document.createElement('input');
   novoIngredienteInput.type = 'text';
   novoIngredienteInput.className = 'input';
   novoIngredienteInput.required = true;
   novoIngredienteInput.placeholder = 'Digite um ingrediente...';
+  novoIngredienteInput.name = 'ingrediente';
   novoIngredienteInput.oninput = function() {
     filtrarIngredientes(novoIngredienteInput, novoUl);
   };
@@ -530,15 +538,27 @@ function adicionarIngrediente() {
   novoIngredienteLabel.appendChild(novoIngredienteInput);
   novoIngredienteLabel.appendChild(novoUl);
 
-  // Cria o campo de entrada para a quantidade com o botão de remoção
+  // Cria o campo de entrada para a quantidade
   var novaQuantidadeLabel = document.createElement('label');
+  novaQuantidadeLabel.style.width = '15%';
   var novaQuantidadeInput = document.createElement('input');
-  novaQuantidadeInput.type = 'text';
+  novaQuantidadeInput.type = 'number';
   novaQuantidadeInput.className = 'input';
   novaQuantidadeInput.required = true;
-  novaQuantidadeInput.placeholder = 'quantidade';
+  novaQuantidadeInput.placeholder = ' g/ml';
+  novaQuantidadeInput.name = 'quantidade';
 
-  // Botão de remoção
+  novaQuantidadeLabel.appendChild(novaQuantidadeInput);
+
+  // Cria o campo de entrada para a observação com o botão de remoção
+  var novaObservacaoLabel = document.createElement('label');
+  novaObservacaoLabel.style.width = '35%';
+  var novaObservacaoInput = document.createElement('input');
+  novaObservacaoInput.type = 'text';
+  novaObservacaoInput.className = 'input';
+  novaObservacaoInput.placeholder = 'Observação';
+  novaObservacaoInput.name = 'observacao';
+
   var botaoRemover = document.createElement('button');
   botaoRemover.type = 'button';
   botaoRemover.className = 'remove-button';
@@ -547,12 +567,13 @@ function adicionarIngrediente() {
     removerIngrediente(this);
   };
 
-  novaQuantidadeLabel.appendChild(novaQuantidadeInput);
-  novaQuantidadeLabel.appendChild(botaoRemover);
+  novaObservacaoLabel.appendChild(novaObservacaoInput);
+  novaObservacaoLabel.appendChild(botaoRemover);
 
   // Adiciona os novos campos ao novo elemento div
   novoIngredienteDiv.appendChild(novoIngredienteLabel);
   novoIngredienteDiv.appendChild(novaQuantidadeLabel);
+  novoIngredienteDiv.appendChild(novaObservacaoLabel);
 
   // Adiciona o novo elemento div ao contêiner de ingredientes
   var ingredientesContainer = document.getElementById('ingredientesContainer');
@@ -588,5 +609,6 @@ function filtrarIngredientes(inputElement, ulElement) {
 
   ulElement.style.display = 'block'; // Mostra a lista com os resultados
 }
+
   </script>
 </html>

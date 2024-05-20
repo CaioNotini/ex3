@@ -22,7 +22,7 @@ public boolean insert(Receitas receita){
     boolean status = false;
 
     try {
-        String sql = "INSERT INTO receita (nome, codigoVideo, descricao, tempo, tipo, horario, totalCalorias, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO receita (nome, codigovideo, descricao, tempo, tipo, horario, totalcalorias, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         PreparedStatement ps = conexao.prepareStatement(sql);
 
@@ -71,6 +71,7 @@ public boolean deleteReceita(int id) {
 
     return status;
 }
+
 
 
 
@@ -135,5 +136,20 @@ public Receitas getReceita(int id){
 
     return receita;
 }
+
+public int getId(String nome){
+    String sql = "SELECT id_receita FROM receita WHERE nome = ?";
+            try (PreparedStatement ps = conexao.prepareStatement(sql)) {
+                ps.setString(1, nome);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    return rs.getInt("id_receita");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        return 0; 
+}
+ 
 }
 

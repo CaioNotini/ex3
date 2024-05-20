@@ -55,6 +55,7 @@ public class Aplicacao {
 
         
         get("/receitas", (request,response)-> receitas(request,response), engine);
+        post("/receitas", (request,response)-> receitasService.register(request, response));
 
 
         
@@ -76,9 +77,14 @@ public class Aplicacao {
 	}
 
 	public static ModelAndView login(Request request, Response response) {
-		HashMap<String, Object> model = new HashMap<>();
+         Session session = request.session(false);
+         String flashMessage = session.attribute("flash");
+         session.removeAttribute("flash"); 
+		
+         HashMap<String, Object> model = new HashMap<>();
+         model.put("flash", flashMessage);
 
-		return new ModelAndView(model, "paginas/login.html");
+		return new ModelAndView(model, "templates/login.vm");
 	}
 
         public static ModelAndView index(Request request, Response response){
@@ -107,7 +113,14 @@ public class Aplicacao {
     public static ModelAndView profile(Request request, Response response) {
         HashMap<String, Object> model = new HashMap<>();    
         Session session = request.session(false);
+        Session session2 = request.session(false);
+
+         String flashMessage = session2.attribute("flash");
+         session2.removeAttribute("flash"); 
+
+
         if (session != null) {
+           
             User currentUser = session.attribute("currentUser");
             if (currentUser != null) {
                 UserDAO userDAO = new UserDAO();
@@ -115,6 +128,7 @@ public class Aplicacao {
 
                 model.put("user", currentUser);
                 model.put("calorias", calorias);
+                model.put("flash", flashMessage);
             }
         }
         return new ModelAndView(model, "templates/profile.vm");

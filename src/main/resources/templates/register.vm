@@ -13,9 +13,7 @@
       
 </head>
 <body>
-#if($message)
-<div class="alert delete">$message</div> 
-#end
+
 <div class="container" id="container">
 	<div class="form-container sign-in-container">
 		<form action="/register" method="post">
@@ -49,6 +47,10 @@
 </div>
 </body>
 <script>
- 
+   
 </script>
+
+<style>
+
+</style>
 </html>

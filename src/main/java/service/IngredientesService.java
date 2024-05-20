@@ -2,23 +2,8 @@ package service;
 
 import spark.*;
 import java.util.*;
-import dao.IngredientesDAO;
-import dao.UserDAO;
-import model.Calorias;
-import model.Ingredientes;
-import model.Perfil;
-import model.Calorias;
-import model.User;
-import java.security.*;
-import java.time.*;
-
-
-import org.eclipse.jetty.server.LocalConnector;
-
-import static spark.Spark.halt;
-import static spark.Spark.redirect;
-
-import java.math.*;
+import model.*;
+import dao.*;
 
 public class IngredientesService {
     private IngredientesDAO ingredientesDAO = new IngredientesDAO();
@@ -45,6 +30,8 @@ public class IngredientesService {
 
 		return response;
 	}
+
+    
 
 
 }
