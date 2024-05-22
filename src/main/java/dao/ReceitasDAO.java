@@ -2,12 +2,9 @@ package dao;
 
 
 import java.sql.*;
-import java.util.List;
-import java.util.ArrayList;
+import java.util.*;
 
 
-import org.eclipse.jetty.http.MetaData.Request;
-import org.eclipse.jetty.http.MetaData.Response;
 
 import model.*;
 
@@ -22,7 +19,7 @@ public boolean insert(Receitas receita){
     boolean status = false;
 
     try {
-        String sql = "INSERT INTO receita (nome, codigovideo, descricao, tempo, tipo, horario, totalcalorias, id_usuario) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO receita (nome, codigovideo, descricao, tempo, tipo, horario, totalcalorias, id_usuario, porcao) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)";
 
         PreparedStatement ps = conexao.prepareStatement(sql);
 
@@ -34,6 +31,7 @@ public boolean insert(Receitas receita){
         ps.setString(6, receita.getHorario());
         ps.setFloat(7, receita.getTotalCalorias());
         ps.setInt(8, receita.getId_usuario());
+        ps.setFloat(9, receita.getPorcao());
 
 
         int affectedRows = ps.executeUpdate();
@@ -97,6 +95,7 @@ public List<Receitas> getReceita(){
             receita.setHorario(rs.getString("horario"));
             receita.setTotalCalorias(rs.getFloat("totalcalorias"));
             receita.setId_usuario(rs.getInt("id_usuario"));
+            receita.setPorcao(rs.getFloat("porcao"));
 
             receitas.add(receita);
         }
@@ -129,6 +128,8 @@ public Receitas getReceita(int id){
             receita.setHorario(rs.getString("horario"));
             receita.setTotalCalorias(rs.getFloat("totalcalorias"));
             receita.setId_usuario(rs.getInt("id_usuario"));
+            receita.setPorcao(rs.getFloat("porcao"));
+
         }
     } catch (SQLException e) {
 			System.err.println(e);
@@ -149,6 +150,45 @@ public int getId(String nome){
                 e.printStackTrace();
             }
         return 0; 
+}
+
+public List<Receitas> getAvaliadas(){
+    AvaliacoesDAO avaliacoesDAO = new AvaliacoesDAO();
+
+    List<Receitas> receitas = new ArrayList<>();
+    Map<Integer, Double> media = avaliacoesDAO.media();
+
+    List<Map.Entry<Integer, Double>> mediasOrdenadas = new ArrayList<>(media.entrySet());
+    mediasOrdenadas.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
+
+    String sql = "SELECT * FROM receita WHERE id_receita = ?";
+    try{
+        PreparedStatement ps = conexao.prepareStatement(sql);
+        for(Map.Entry<Integer, Double> entry : mediasOrdenadas){
+            int id = entry.getKey();
+            double mediaAvaliacao = entry.getValue();
+
+            ps.setInt(1, id);
+            try{
+                ResultSet rs =ps.executeQuery();
+                if(rs.next()){
+                    Receitas receita = new Receitas();
+                    receita.setId_receita(rs.getInt("id_receita"));
+                    receita.setNome(rs.getString("nome"));
+                    receita.setCodigoVideo(rs.getString("codigoVideo"));
+                    receita.setDescricao(rs.getString("descricao"));
+                    receita.setNota(mediaAvaliacao);
+                    receitas.add(receita);
+                }
+            } catch(SQLException e){
+                e.printStackTrace();
+            }
+        }
+
+    } catch (SQLException e){
+        e.printStackTrace();
+    }
+    return receitas;
 }
  
 }

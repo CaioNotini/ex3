@@ -7,6 +7,8 @@ import java.util.*;
 
 public class ReceitasService {
     ReceitasDAO receitasDAO = new ReceitasDAO();
+    AvaliacoesDAO avaliacoesDAO = new AvaliacoesDAO();
+    PassosDAO passosDAO = new PassosDAO();
 
     public List<Receitas> exibirReceitas(){
         return receitasDAO.getReceita();
@@ -14,8 +16,18 @@ public class ReceitasService {
     }
 
     public Receitas exibirReceitas(int id){
-        return receitasDAO.getReceita(id);
+        Receitas receita =  receitasDAO.getReceita(id);
 
+        Map<Integer, Double> media = avaliacoesDAO.media();
+        if(media.containsKey(id)){
+            double mediaAvaliacao = media.get(id);
+            receita.setNota(mediaAvaliacao);
+        }
+        return receita;
+    }
+
+    public List<Receitas> exibirAvaliadas(){
+        return receitasDAO.getAvaliadas();
     }
     
 
@@ -36,7 +48,10 @@ public class ReceitasService {
     int tempo = Integer.parseInt(request.queryParams("tempo"));
     String tipo = request.queryParams("tipo");
     String horario = request.queryParams("horario");
+    float porcao = Float.parseFloat(request.queryParams("porcao")); 
     String descricao = request.queryParams("descricao");
+
+    String[] passo = request.queryParamsValues("passo");
 
     String[] ingredientes = request.queryParamsValues("ingrediente");
     String[] quantidades = request.queryParamsValues("quantidade");
@@ -51,7 +66,9 @@ public class ReceitasService {
             totalCalorias += tmp;
         }
 
-        Receitas receita = new Receitas(nome, video, descricao, tempo, tipo, horario, totalCalorias, currentUser.getId());
+        totalCalorias = totalCalorias/porcao;
+
+        Receitas receita = new Receitas(nome, video, descricao, tempo, tipo, horario, totalCalorias, currentUser.getId(), porcao);
 
         boolean receitaInserida = receitasDAO.insert(receita);
         if (!receitaInserida) {
@@ -61,6 +78,7 @@ public class ReceitasService {
         }
 
         boolean allInserted = true;
+        int idReceita = receitasDAO.getId(nome);
 
         for (int i = 0; i < ingredientes.length; i++) {
             String nomeIngrediente = ingredientes[i];
@@ -68,22 +86,39 @@ public class ReceitasService {
             String obs = observacoes[i];
 
             int idIngrediente = ingredientesDAO.getId(nomeIngrediente);
-            int idReceita = receitasDAO.getId(nome);
 
             ReceitaIngrediente receitaIngrediente = new ReceitaIngrediente(idReceita, idIngrediente, quantidade, obs);
 
             boolean status = receitaIngredienteDAO.insert(receitaIngrediente);
             if (!status) {
                 allInserted = false;
+                response.status(500);
+                response.body("Erro ao inserir ingrediente: "+  nomeIngrediente);
                 break; 
             }
         }
+
+         for(int i=0;i<passo.length;i++){
+            int numero = i+1;
+            String descricaoPasso = passo[i];
+
+
+            Passos passos = new Passos(idReceita, numero, descricaoPasso);
+
+            boolean status = passosDAO.insert(passos);
+            if (!status) {
+                allInserted = false;
+                response.status(500);
+                response.body("Erro ao inserir passo: " + numero);
+                break; 
+            }
+        } 
 
         if (allInserted) {
             response.redirect("/receitas");
         } else {
             response.status(500);
-            response.body("Erro ao inserir ingredientes da receita.");
+            response.body("Erro ao inserir ingredientes ou passos da receita.");
         }
     } catch (Exception e) {
         response.status(500);

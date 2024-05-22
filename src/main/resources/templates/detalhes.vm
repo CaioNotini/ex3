@@ -86,8 +86,8 @@
         <span class="star">&#9733;</span>
         <span class="star">&#9733;</span>
         <span class="star">&#9733;</span>
-        <p><b>5</b>/5</p>
-        <p style="font-size: x-small">(20) avaliações</p>
+        <p><b><span id="nota">$receita.getNota()</span></b>/5</p>
+        <p style="font-size: x-small">($total) avaliações</p>
         <button class="avalie">
           <i class="far fa-star"></i>
           <p style="font-size: small"><b>Avalie essa receita</b></p>
@@ -208,17 +208,19 @@
 
     .star {
       font-size: 24px;
-      color: gray;
+      color: #f5f5f5;
     }
+
+    .star.filled{
+    color:gold;
+  }
 
     .star,
     .far {
       margin-top: -15px;
     }
 
-    .estrelas .star:nth-child(-n + 5) {
-      color: gold;
-    }
+    
 
     .avalie {
       margin-top: -15px;
@@ -614,5 +616,20 @@
       form.classList.add("hidden");
       overlay.classList.add("hidden");
     });
+
+    const notaElement = document.getElementById('nota');
+        const nota = parseFloat(notaElement.textContent);
+        notaElement.textContent = nota.toFixed(2);
+
+          // Seleciona todas as estrelas
+        const estrelas = document.querySelectorAll('.star');
+        
+        // Calcula o número de estrelas preenchidas
+        const estrelasPreenchidas = Math.round(nota);
+        
+        // Adiciona a classe 'filled' às estrelas correspondentes
+        for (let i = 0; i < estrelasPreenchidas; i++) {
+            estrelas[i].classList.add('filled');
+        }
   </script>
 </html>

@@ -1,10 +1,7 @@
 package dao;
 
 import java.sql.*;
-import java.util.List;
-import java.util.ArrayList;
-
-
+import java.util.*;
 import model.*;
 
 public class AvaliacoesDAO extends DAO {
@@ -82,6 +79,46 @@ public class AvaliacoesDAO extends DAO {
     }
 
     return false;
+}
+
+public Map<Integer, Double> media(){
+    Map<Integer , Double> media = new HashMap<>();
+
+    String sql = "SELECT id_receita, AVG(nota) as media_avaliacao FROM avaliacao GROUP BY id_receita";
+
+    try{
+    PreparedStatement ps = conexao.prepareStatement(sql);
+    ResultSet rs = ps.executeQuery();
+    while(rs.next()){
+        int id = rs.getInt("id_receita");
+        double mediaAvaliacao = rs.getDouble("media_avaliacao");
+        media.put(id , mediaAvaliacao);
+    }
+    ps.close();
+
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return media;
+}
+
+public int contador(int id){
+    String sql = "SELECT COUNT(*) as total FROM avaliacao WHERE id_receita = ?";
+    int total = 0;
+
+    try{
+        PreparedStatement ps = conexao.prepareStatement(sql);
+        ps.setInt(1, id);
+            
+        ResultSet rs = ps.executeQuery();
+        if(rs.next()){
+            total = rs.getInt("total");
+        }
+    } catch (SQLException e){
+        e.printStackTrace();
+    }
+    return total;
 }
 
 }

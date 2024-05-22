@@ -3,10 +3,7 @@ package service;
 import spark.*;
 import dao.*;
 import model.*;
-import java.security.*;
-import java.time.*;
-import org.eclipse.jetty.server.LocalConnector;
-import java.math.*;
+;
 
 
 public class AvaliacaoService {
@@ -45,4 +42,8 @@ public class AvaliacaoService {
 
         return response;
     }
+
+	public int total(int id){
+		return avaliacoesDAO.contador(id);
+	}
 }

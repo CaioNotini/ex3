@@ -90,7 +90,9 @@ public class Aplicacao {
         public static ModelAndView index(Request request, Response response){
             HashMap<String,Object> model=new HashMap<>();
             ReceitasDAO receitasDAO = new ReceitasDAO();
-            List<Receitas> rc = receitasService.exibirReceitas();
+
+
+            List<Receitas> rc = receitasService.exibirAvaliadas();
             model.put("receita", rc);
 
             return new ModelAndView(model, "templates/index.vm");
@@ -101,10 +103,15 @@ public class Aplicacao {
     public static ModelAndView detalhes(Request request, Response response) {
 		HashMap<String, Object> model = new HashMap<>();
         ReceitasDAO receitasDAO = new ReceitasDAO();
+        AvaliacoesDAO avaliacoesDAO = new AvaliacoesDAO();
 
         int id = Integer.parseInt(request.params(":id"));
+
         
         Receitas rc = receitasService.exibirReceitas(id);
+        int av = avaliacaoService.total(id);
+
+        model.put("total", av);
         model.put("receita", rc);
 
 		return new ModelAndView(model, "templates/detalhes.vm");
@@ -162,7 +169,7 @@ public class Aplicacao {
 		HashMap<String, Object> model = new HashMap<>();
        
         ReceitasDAO receitasDAO = new ReceitasDAO();
-        List<Receitas> rc = receitasService.exibirReceitas();
+        List<Receitas> rc = receitasService.exibirAvaliadas();
         model.put("receita", rc);
 
 

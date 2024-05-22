@@ -10,11 +10,13 @@ public class Receitas {
     private String horario;
     private float totalCalorias;
     private int id_usuario;
+    private double nota;
+    private float porcao;
 
     public Receitas() {
     }
 
-    public Receitas(int id_receita, String nome, String codigoVideo, String descricao, int tempo, String tipoReceita, String horario, float totalCalorias, int id_usuario) {
+    public Receitas(int id_receita, String nome, String codigoVideo, String descricao, int tempo, String tipoReceita, String horario, float totalCalorias, int id_usuario, float porcao) {
         this.id_receita = id_receita;
         this.nome = nome;
         this.codigoVideo = codigoVideo;
@@ -24,9 +26,10 @@ public class Receitas {
         this.horario = horario;
         this.totalCalorias = totalCalorias;
         this.id_usuario = id_usuario;
+        this.porcao = porcao;
     }
 
-        public Receitas(String nome, String codigoVideo, String descricao, int tempo, String tipoReceita, String horario, float totalCalorias, int id_usuario) {
+        public Receitas(String nome, String codigoVideo, String descricao, int tempo, String tipoReceita, String horario, float totalCalorias, int id_usuario, float porcao) {
         this.nome = nome;
         this.codigoVideo = codigoVideo;
         this.descricao = descricao;
@@ -35,6 +38,7 @@ public class Receitas {
         this.horario = horario;
         this.totalCalorias = totalCalorias;
         this.id_usuario = id_usuario;
+        this.porcao = porcao;
     }
 
     public int getId_receita() {
@@ -107,5 +111,21 @@ public class Receitas {
 
     public void setId_usuario(int id_usuario){
         this.id_usuario = id_usuario;
+    }
+
+    public double getNota(){
+        return nota;
+    }
+
+    public void setNota(double nota){
+        this.nota = nota;
+    }
+
+    public float getPorcao(){
+        return porcao;
+    }
+
+    public void setPorcao(float porcao){
+        this.porcao = porcao;
     }
 }

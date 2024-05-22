@@ -42,10 +42,10 @@
     <nav>
       <ul>
         <li>
-          <a href="/index" class="">Home</a>
+          <a href="/receitas" class="">Receitas</a>
         </li>
         <li>
-          <a href="" class="active">Receitas</a>
+          <a href="/alimentos" class="active">Alimentos</a>
         </li>
         <li>
           <a href="/gerador" class="">Crie sua Dieta</a>
@@ -397,7 +397,7 @@
       from {
         transform: scale(0.9);
         opacity: 1;
-      }
+      }   
 
       to {
         transform: scale(1.8);

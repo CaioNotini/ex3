@@ -182,7 +182,7 @@
       </div>
     </div>
 
-    <div class="texto" style="margin-top: -150px">
+    <div class="textoReceitas" style="margin-top: -4%">
       <h1>Receitas mais avaliadas:</h1>
       <h5>
         Confira as receitas e alimentos mais bem avaliadas e visitadas pelos
@@ -190,7 +190,9 @@
       </h5>
     </div>
 
-    #foreach($receitas in $receita)
+    #set($count = 0)
+            #foreach($receitas in $receita)
+                #if($count < 5)
     <div class="r">
       <a href="/detalhes/$receitas.id_receita">
         <div class="receitas">
@@ -207,18 +209,22 @@
             <p>
               $receitas.getDescricao()
             </p>
+            <p style="display:none;" class="nota">$receitas.getNota()</p>
             <div class="rating">
               <span class="star">&#9733;</span>
               <span class="star">&#9733;</span>
               <span class="star">&#9733;</span>
               <span class="star">&#9733;</span>
               <span class="star">&#9733;</span>
+
             </div>
           </div>
         </div>
       </a>
     </div>
-    #end
+    #set($count = $count + 1)
+                #end
+            #end
   </body>
 
   <style>
@@ -297,6 +303,11 @@
     .texto {
       margin-top: 50px;
       text-align: center;
+    }
+
+    .textoReceitas {
+      text-align: left;
+      margin-left: 5%;
     }
 
     body {
@@ -392,8 +403,9 @@
     /* Receitas recomendadas */
 
     .r {
-      margin-left: 215px;
-      margin-right: 215px;
+      margin-left: 5%;
+      margin-right: 5%;
+      margin-bottom:-0.8%;
       display: flex;
       justify-content: left;
     }
@@ -425,19 +437,20 @@
 
     .rating {
       margin-top: -18px;
-      unicode-bidi: bidi-override;
-      direction: rtl;
       text-align: left;
+      flex-direction: row;
     }
 
     .star {
       font-size: 24px;
-      color: gray;
+      color: #f5f5f5;
     }
 
-    .rating .star:nth-child(-n + 5) {
-      color: gold;
-    }
+    .star.filled{
+    color:gold;
+  }
+
+    
 
     /* Navbar */
 
@@ -537,4 +550,25 @@
     }
   </style>
   <link rel="stylesheet" href="assets/js/script.js" />
+  <script>
+
+         // Seleciona todas as divs com a classe 'r'
+        const receitas = document.querySelectorAll('.r');
+
+        receitas.forEach(receita => {
+            // Obtém a nota da receita
+            const nota = parseFloat(receita.querySelector('.nota').textContent);
+
+            // Seleciona todas as estrelas dentro desta receita
+            const estrelas = receita.querySelectorAll('.star');
+
+            // Calcula o número de estrelas preenchidas
+            const estrelasPreenchidas = Math.round(nota);
+
+            // Adiciona a classe 'filled' às estrelas correspondentes da esquerda para a direita
+            for (let i = 0; i < estrelasPreenchidas; i++) {
+                estrelas[i].classList.add('filled');
+            }
+        });
+  </script>
 </html>
