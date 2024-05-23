@@ -28,10 +28,10 @@
     <nav>
       <ul>
         <li>
-          <a href="/index" class="">Home</a>
+          <a href="/receitas" class="">Receitas</a>
         </li>
         <li>
-          <a href="" class="">Receitas</a>
+          <a href="/alimentos" class="">Alimentos</a>
         </li>
         <li>
           <a href="/gerador">Crie sua Dieta</a>
@@ -128,7 +128,7 @@
         </div>
         <div class="flex justify-center space-x-2 mt-4">
           <a
-            href="/logout"
+            href="/t-logout"
             class="bg-blue-400 px-12 py-2 rounded-lg font-semibold text-sm text-white hover:text-white hover:bg-blue-600 transition duration-300 ease-in-out"
             >Sair</a
           >

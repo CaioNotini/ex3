@@ -56,12 +56,11 @@ public class UserService {
 	}
 
 
-
-	public void logout(Request request, Response response) {
+public void logout(Request request, Response response) {
     request.session().invalidate();
-    response.redirect("/login");
+    response.redirect("/register");
     halt();
-}
+}   
 
 	public Object delete(Request request, Response response){
     UserDAO dao = new UserDAO();
@@ -72,7 +71,7 @@ public class UserService {
             try {
                 dao.delete(currentUser);
                 session.invalidate(); 
-				request.session().attribute("message", "Conta excluída com sucesso!");
+				request.session().attribute("flash", "Conta excluída com sucesso!");
                 response.redirect("/register"); 
             } catch (Exception e) {
                 response.status(500);

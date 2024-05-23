@@ -1,7 +1,10 @@
 package dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import model.Passos;
 
@@ -35,4 +38,30 @@ public class PassosDAO extends DAO {
         }
         return status;
     }
+
+    public List<Passos> getPassos(int id){
+        List<Passos> passoApasso = new ArrayList<>();
+
+        try{
+            String sql = "SELECT * FROM passos WHERE id_receita = ?";
+
+            PreparedStatement ps = conexao.prepareStatement(sql);
+
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                Passos passos = new Passos();
+                passos.setNumero(rs.getInt("numero_passo"));
+                passos.setDescricaoPasso(rs.getString("descricao_passo"));
+                passoApasso.add(passos);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return passoApasso;
+    }
+
+
 }

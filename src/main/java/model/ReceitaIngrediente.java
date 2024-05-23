@@ -5,6 +5,7 @@ public class ReceitaIngrediente {
     private int idIngredientes;
     private float quantidade;
     private String observacao;
+    private String nomeIngrediente;
 
     public ReceitaIngrediente() {
     }
@@ -46,6 +47,14 @@ public class ReceitaIngrediente {
 
     public void setObservacao(String observacao) {
         this.observacao = observacao;
+    }
+
+     public String getNomeIngrediente() {
+        return nomeIngrediente;
+    }
+
+    public void setNomeIngrediente(String nomeIngrediente) {
+        this.nomeIngrediente = nomeIngrediente;
     }
 }
 

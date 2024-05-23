@@ -43,4 +43,33 @@ public class ReceitaIngredienteDAO extends DAO{
 
         return status;
     }
+
+    public List<ReceitaIngrediente> getId(int id){
+        List<ReceitaIngrediente> receitaIngredientes = new ArrayList<>();
+
+        try{
+            String sql = "SELECT id_ingrediente, quantidadereceita, porcao FROM receitaingrediente WHERE id_receita = ?";
+
+            PreparedStatement ps = conexao.prepareStatement(sql);
+
+            ps.setInt(1, id);
+
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                ReceitaIngrediente ri = new ReceitaIngrediente();
+
+                ri.setidIngredientes(rs.getInt("id_ingrediente"));
+                ri.setQuantidade(rs.getFloat("quantidadereceita"));
+                ri.setObservacao(rs.getString("porcao"));
+
+                receitaIngredientes.add(ri);
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return receitaIngredientes;
+    }
+
+
 }

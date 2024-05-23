@@ -102,6 +102,20 @@ public float getCalorias(String nome){
             }
         return 0; 
     }
+
+        public String getNome(int id){
+        String sql = "SELECT nome FROM ingrediente WHERE id_ingrediente = ?";
+            try (PreparedStatement ps = conexao.prepareStatement(sql)) {
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    return rs.getString("nome");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        return null; 
+    }
     
 
 }

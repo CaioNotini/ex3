@@ -37,9 +37,10 @@ public class VideoCurtoService {
 
         VideoCurto videoCurto = new VideoCurto(plataforma, codigo, autor, titulo, descricao, dataPublicacao, currentUser.getId());
 
-     boolean inserted = videoCurtoDAO.insert(videoCurto);
+        boolean inserted = videoCurtoDAO.insert(videoCurto);
      if(inserted){
-        response.redirect("receitas");
+        request.session().attribute("flash", "Vídeo inserido com sucesso!");
+        response.redirect("/receitas");
 
      } else{
         response.status(500);

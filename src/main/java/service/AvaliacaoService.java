@@ -34,6 +34,7 @@ public class AvaliacaoService {
 	
 		if (insertORupdate) {
 			response.status(200);
+            request.session().attribute("flash", "Avaliação registrada com sucesso!");
             response.redirect("/detalhes/"+id); 
 		} else {
 			response.status(500); 

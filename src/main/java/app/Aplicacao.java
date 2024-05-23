@@ -35,7 +35,7 @@ public class Aplicacao {
         post("/index", (request, response) -> userService.perfil(request, response));
 
         get("/profile", (request,response)-> profile(request,response), engine);
-        get("/logout", (request,response)-> { userService.logout(request, response); return null;});
+        get("/t-logout", (request,response)-> { userService.logout(request, response); return null;});
         post("/delete", (request, response) -> userService.delete(request, response));
 
         get("/mercado", (request,response)-> mercado(request,response), engine);
@@ -68,21 +68,30 @@ public class Aplicacao {
     }
 
     public static ModelAndView cadastro(Request request, Response response) {
-        String message = request.session().attribute("message");
-		HashMap<String, Object> model = new HashMap<>();
-        if(message != null){
-            model.put(message, message);
-            request.session().removeAttribute(message);
+        Session session = request.session(false);
+        String message = null;
+        if (session != null) {
+        message = session.attribute("flash");
+        session.removeAttribute("flash");
         }
 
+        HashMap<String, Object> model = new HashMap<>();
+
+
+        model.put("flash", message);
+
+        
 		return new ModelAndView(model, "templates/register.vm");
 	}
 
 	public static ModelAndView login(Request request, Response response) {
          Session session = request.session(false);
-         String flashMessage = session.attribute("flash");
-         session.removeAttribute("flash"); 
-		
+         String flashMessage = null;
+            if (session != null) {
+            flashMessage = session.attribute("flash");
+            session.removeAttribute("flash");
+            }
+
          HashMap<String, Object> model = new HashMap<>();
          model.put("flash", flashMessage);
 
@@ -106,15 +115,36 @@ public class Aplicacao {
 		HashMap<String, Object> model = new HashMap<>();
         ReceitasDAO receitasDAO = new ReceitasDAO();
         AvaliacoesDAO avaliacoesDAO = new AvaliacoesDAO();
+        PassosDAO passosDAO = new PassosDAO();
+        IngredientesDAO ingredientesDAO = new IngredientesDAO();
+        ReceitaIngredienteDAO receitaIngredienteDAO = new ReceitaIngredienteDAO();
 
         int id = Integer.parseInt(request.params(":id"));
 
-        
+        List<ReceitaIngrediente> ri = receitasService.getReceitaIngrediente(id);
         Receitas rc = receitasService.exibirReceitas(id);
         int av = avaliacaoService.total(id);
+        List<Passos> ps = receitasService.getPassos(id);
 
+        for(ReceitaIngrediente in : ri ){
+            System.out.println("Ingrediente ID: " + in.getidIngredientes() + ", Quantidade: " + in.getObservacao());
+
+            String nome = ingredientesService.getNome(in.getidIngredientes());
+            in.setNomeIngrediente(nome);
+        }
+
+        model.put("ingredientes", ri);
+        model.put("passos", ps);
         model.put("total", av);
         model.put("receita", rc);
+
+        Session session = request.session(false);
+         String flashMessage = null;
+            if (session != null) {
+            flashMessage = session.attribute("flash");
+            session.removeAttribute("flash");
+            }
+        model.put("flash", flashMessage);
 
 		return new ModelAndView(model, "templates/detalhes.vm");
 	}
@@ -124,8 +154,11 @@ public class Aplicacao {
         Session session = request.session(false);
         Session session2 = request.session(false);
 
-         String flashMessage = session2.attribute("flash");
-         session2.removeAttribute("flash"); 
+         String message = null;
+        if (session != null) {
+        message = session2.attribute("flash");
+        session2.removeAttribute("flash");
+        }
 
 
         if (session != null) {
@@ -137,7 +170,7 @@ public class Aplicacao {
 
                 model.put("user", currentUser);
                 model.put("calorias", calorias);
-                model.put("flash", flashMessage);
+                model.put("flash", message);
             }
         }
         return new ModelAndView(model, "templates/profile.vm");
@@ -164,6 +197,15 @@ public class Aplicacao {
         List<Ingredientes> in = ingredientesService.exibir();
         model.put("ingrediente", in);
 
+         Session session = request.session(false);
+         String flashMessage = null;
+            if (session != null) {
+            flashMessage = session.attribute("flash");
+            session.removeAttribute("flash");
+            }
+        model.put("flash", flashMessage);
+
+
 		return new ModelAndView(model, "templates/alimentos.vm");
 	}
 
@@ -188,6 +230,14 @@ public class Aplicacao {
         video.setUrl(videoCurtoDAO.getUrl(video));
         }
         model.put("videos", vc);
+
+         Session session = request.session(false);
+         String flashMessage = null;
+            if (session != null) {
+            flashMessage = session.attribute("flash");
+            session.removeAttribute("flash");
+            }
+        model.put("flash", flashMessage);
 
 		return new ModelAndView(model, "templates/receitas.vm");
 	}

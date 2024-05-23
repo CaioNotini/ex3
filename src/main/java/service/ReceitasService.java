@@ -9,6 +9,7 @@ public class ReceitasService {
     ReceitasDAO receitasDAO = new ReceitasDAO();
     AvaliacoesDAO avaliacoesDAO = new AvaliacoesDAO();
     PassosDAO passosDAO = new PassosDAO();
+    ReceitaIngredienteDAO receitaIngredienteDAO = new ReceitaIngredienteDAO();
 
     public List<Receitas> exibirReceitas(){
         return receitasDAO.getReceita();
@@ -114,10 +115,11 @@ public class ReceitasService {
         } 
 
         if (allInserted) {
+            request.session().attribute("flash", "Receita cadastrado com sucesso!");
             response.redirect("/receitas");
         } else {
-            response.status(500);
-            response.body("Erro ao inserir ingredientes ou passos da receita.");
+           request.session().attribute("flash", "Receita cadastrado com sucesso!");
+           response.redirect("/receitas");
         }
     } catch (Exception e) {
         response.status(500);
@@ -126,6 +128,14 @@ public class ReceitasService {
     }
 
     return response;
+}
+
+public List<Passos> getPassos(int id){
+    return passosDAO.getPassos(id);
+}
+
+public List<ReceitaIngrediente> getReceitaIngrediente(int id){
+    return receitaIngredienteDAO.getId(id);
 }
 
 }

@@ -12,6 +12,10 @@ public class IngredientesService {
             return ingredientesDAO.getIngrediente();
 
         }
+
+        public String getNome(int id){
+            return ingredientesDAO.getNome(id);
+        }
     
     	public Object register(Request request, Response response) {
 		 String nome = request.queryParams("nome");
@@ -24,6 +28,7 @@ public class IngredientesService {
         Ingredientes ingrediente = new Ingredientes(nome,calorias,proteinas,gorduras,carboidrato);
 
         if (ingredientesDAO.insert(ingrediente)  == true) {
+            request.session().attribute("flash", "Ingrediente cadastrado com sucesso!");
 			response.redirect("/alimentos");
 		} else {
 		}
