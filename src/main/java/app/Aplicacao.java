@@ -16,6 +16,7 @@ public class Aplicacao {
     private static ReceitasService receitasService = new ReceitasService();
     private static IngredientesService ingredientesService = new IngredientesService();
     private static AvaliacaoService avaliacaoService = new AvaliacaoService();
+    private static VideoCurtoService videoCurtoService = new VideoCurtoService();
 
     public static void main(String[] args) {
         
@@ -56,6 +57,7 @@ public class Aplicacao {
         
         get("/receitas", (request,response)-> receitas(request,response), engine);
         post("/receitas", (request,response)-> receitasService.register(request, response));
+        post("videos", (request,response) -> videoCurtoService.register(request, response));
 
 
         
@@ -170,12 +172,22 @@ public class Aplicacao {
        
         ReceitasDAO receitasDAO = new ReceitasDAO();
         List<Receitas> rc = receitasService.exibirAvaliadas();
+        List<Receitas> rc2 = receitasService.exibirReceitas();
         model.put("receita", rc);
+        model.put("todasReceitas", rc2);
 
 
         IngredientesDAO ingredientesDAO = new IngredientesDAO();
         List<Ingredientes> in = ingredientesService.exibir();
         model.put("ingrediente", in);
+
+        VideoCurtoDAO videoCurtoDAO = new VideoCurtoDAO();
+        List<VideoCurto> vc = videoCurtoService.exibirVideos();
+
+         for (VideoCurto video : vc) {
+        video.setUrl(videoCurtoDAO.getUrl(video));
+        }
+        model.put("videos", vc);
 
 		return new ModelAndView(model, "templates/receitas.vm");
 	}

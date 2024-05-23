@@ -3,9 +3,6 @@ package dao;
 
 import java.sql.*;
 import java.util.*;
-
-
-
 import model.*;
 
 public class ReceitasDAO extends DAO {

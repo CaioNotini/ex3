@@ -26,6 +26,17 @@
       rel="stylesheet"
     />
 
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css"
+    />
+
     <!------ FontAwesome ------->
     <link
       rel="stylesheet"
@@ -93,17 +104,17 @@
       <button type="button" class="adicionar btn-link">
         <i class="fas fa-plus"></i> Crie uma receita!
       </button>
-      <button class=" btn-link">
+      <button class="btn-link">
         <a href="/gerador" style="text-decoration: none">
           <i class="fas fa-calendar-alt"></i> Faça um plano alimentar!
         </a>
       </button>
-      <button class=" btn-link">
+      <button class="btn-link">
         <a href="/alimentos" style="text-decoration: none">
           <i class="fas fa-search"></i> Busque por ingredientes!
         </a>
       </button>
-      <button type="button" class=" btn-link">
+      <button type="button" class="adicionarVideos btn-link">
         <i class="fas fa-plus"></i> Adicone vídeos curtos!
       </button>
     </div>
@@ -135,7 +146,7 @@
         </label>
 
         <div class="flex">
-          <label>
+          <label style="width: 33%">
             <input
               required=""
               placeholder=""
@@ -147,26 +158,46 @@
             <span>Código Vídeo</span>
           </label>
 
-          <label>
+          <label style="width: 33%">
             <input
               required=""
               placeholder=""
-              type="text"
+              type="number"
               class="input"
+              step="0.1"
               id="tempo"
               name="tempo"
             />
             <span>Tempo (min)</span>
           </label>
 
-          <label>
-            <select
-              required
+          <label style="width: 33%">
+            <input
+              required=""
+              placeholder=""
+              type="number"
+              step="0.01"
               class="input"
-              style="width: 153px"
-              name="tipo"
-              id="tipo"
-            >
+              id="porcao"
+              name="porcao"
+            />
+            <span>Porções</span>
+          </label>
+        </div>
+
+        <div class="flex">
+          <label style="width: 50%">
+            <select required class="input" name="horario" id="horario">
+              <option value="" disabled selected>Horário</option>
+              <option value="Café">Café</option>
+              <option value="Almoço">Almoço</option>
+              <option value="Jantar">Jantar</option>
+              <option value="Lanche">Lanche</option>
+              <option value="Sobremesa">Sobremesa</option>
+            </select>
+          </label>
+          <label style="width: 50%">
+            <select required class="input" name="tipo" id="tipo">
               <option value="" disabled selected>Tipo</option>
               <option value="Tudo">Livre</option>
               <option value="Vegano">Vegano</option>
@@ -176,31 +207,7 @@
               <option value="Paleo">Paleo</option>
             </select>
           </label>
-
-          <label>
-            <select required class="input" name="horario" id="horario">
-              <option value="" disabled selected>Horário</option>
-              <option value="Café">Café</option>
-              <option value="Almoço">Almoço</option>
-              <option value="Janta">Jantar</option>
-              <option value="Lanche">Lanche</option>
-              <option value="Sobremesa">Sobremesa</option>
-            </select>
-          </label>
         </div>
-
-        <label>
-          <input
-            required=""
-            placeholder=""
-            type="number"
-            step="0.01"
-            class="input"
-            id="porcao"
-            name="porcao"
-          />
-          <span>Porções</span>
-        </label>
 
         <label>
           <textarea
@@ -237,7 +244,7 @@
 
         <div id="ingredientesContainer">
           <div class="flex">
-            <label style="width: 60%">
+            <label style="width: 55%">
               <input
                 type="text"
                 class="input"
@@ -249,7 +256,7 @@
               />
               <ul id="listaDeIngredientes" style="display: none"></ul>
             </label>
-            <label style="width: 15%">
+            <label style="width: 20%">
               <input
                 required=""
                 type="number"
@@ -312,6 +319,138 @@
         </div>
         #set($count = $count + 1) #end #end
       </div>
+    </div>
+
+    <div class="top">
+      <h2 class="title">Receitas</h2>
+      <div class="c">
+        #set($count = 0) #foreach($todas in $todasReceitas) #if($count < 10)
+        <div class="card">
+          <div class="card-image-container">
+            <iframe
+              src="https://www.youtube.com/embed/$todas.getCodigoVideo()"
+              title="YouTube video"
+            ></iframe>
+          </div>
+          <p class="card-title">$todas.nome</p>
+          <a href="/detalhes/$todas.id_receita" style="text-decoration: none">
+            <div class="card-btn">
+              <i class="fas fa-plus"></i>
+              <span class="card-btn-text">Saiba Mais</span>
+            </div>
+          </a>
+        </div>
+        #set($count = $count + 1) #end #end
+      </div>
+    </div>
+
+    <div class="container">
+      <h2 class="title">Rápido e Prático</h2>
+      <p>Veja Vídeos Curtos e rápidos de diferentes receitas e aproveite!</p>
+
+      <div class="logo-slider">
+              #foreach($video in $videos)
+
+        <div class="item">
+          <div class="card-video">
+            <iframe src="$video.url" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+            <div class="category"><h5>$video.titulo</h5></div>
+            <div class="heading">
+              <div class="author">
+                By <span class="name">$video.getAutor()</span> $video.data
+              </div>
+            </div>
+          </div>
+        </div>
+        #end
+      </div>
+    </div>
+
+    <div class="add adjust addVideo">
+      <form action="/videos" method="post" class="form">
+        <div class="cont">
+          <p class="title">Vídeos Curtos</p>
+          <button
+            type="button"
+            class="cancelVideo"
+            style="border: none; background-color: transparent"
+          >
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <p class="message">
+          Insira pequenos vídeos das suas receitas favoritas!
+        </p>
+
+        <div class="flex">
+          <label for="titulo" style="width: 70%">
+            <input
+              name="titulo"
+              required=""
+              placeholder=""
+              type="text"
+              class="input"
+              id="titulo"
+            />
+            <span>Título Vídeo</span>
+          </label>
+          <label for="">
+            <input
+              type="date"
+              class="input"
+              id="data"
+              name="data"
+              required=""
+            />
+          </label>
+        </div>
+
+        <div class="flex">
+          <label for="codigoVideocurto">
+            <input
+              name="codigoVideocurto"
+              required=""
+              placeholder=""
+              type="text"
+              class="input"
+              id="codigoVideocurto"
+            />
+            <span>Còdigo Vídeo</span>
+          </label>
+
+          <label for="autor">
+            <input
+              name="autor"
+              required=""
+              placeholder=""
+              type="text"
+              class="input"
+              id="autor"
+            />
+            <span>@</span>
+          </label>
+
+          <label style="width: 33%">
+            <select required class="input" name="plataforma" id="plataforma">
+              <option value="" disabled selected>Plataforma</option>
+              <option value="Youtube">Shorts</option>
+              <option value="TikTok">Tik Tok</option>
+              <option value="Instagram">Reels</option>
+            </select>
+          </label>
+        </div>
+        <label>
+          <textarea
+            style="height: 100px"
+            placeholder="Descrição"
+            class="input"
+            id="desc"
+            name="desc"
+          ></textarea>
+        </label>
+
+        <button type="submit" class="submit">Criar</button>
+      </form>
     </div>
   </body>
   <footer style="height: 100px"></footer>
@@ -617,6 +756,7 @@
       padding: 20px;
       border-radius: 20px;
       position: relative;
+      margin-top: 5% !important;
       margin: 0 auto;
       z-index: 100;
     }
@@ -814,13 +954,93 @@
       outline: none;
       box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.5);
     }
+
+    /* Slider Videos Curtos */
+
+    .container {
+      margin: 100px auto;
+    }
+
+    .logo-slider .slick-slide {
+      margin: 15px;
+    }
+    .slick-dots li.slick-active button:before {
+      color: #1a7edb;
+    }
+    .slick-dots li button:before {
+      font-size: 12px;
+    }
+    .slick-next:before,
+    .slick-prev:before {
+      color: #4aa2f4;
+      font-size: 24px;
+    }
+
+    .t2 {
+      margin-top: 100px !important;
+    }
+
+    .t2::after {
+      background-color: #111;
+    }
+
+    .card-video {
+      width: 300px;
+      background: white;
+      padding: 0.4em;
+      border-radius: 6px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-video iframe {
+      height: 450px;
+      border-radius: 6px 6px 0 0;
+      display: block;
+    }
+
+    .category {
+      text-transform: uppercase;
+      font-size: 0.7em;
+      font-weight: 600;
+      color: rgb(63, 121, 230);
+      padding: 10px 7px 0;
+    }
+
+    .category:hover {
+      cursor: pointer;
+    }
+
+    .heading {
+      font-weight: 600;
+      color: rgb(88, 87, 87);
+      padding: 7px;
+    }
+
+    .heading:hover {
+      cursor: pointer;
+    }
+
+    .author {
+      color: gray;
+      font-weight: 400;
+      font-size: 11px;
+      padding-top: 20px;
+    }
+
+    .name {
+      font-weight: 600;
+    }
+
+    .name:hover {
+      cursor: pointer;
+    }
   </style>
   <script>
         let ingredientes = [
             #foreach($ingrediente in $ingrediente)
             "$ingrediente.nome",
             #end
-        ]; 
+        ];
     function adicionarIngrediente() {
       var novoIngredienteDiv = document.createElement("div");
       novoIngredienteDiv.className = "flex";
@@ -828,7 +1048,7 @@
 
       // Cria o campo de entrada para o ingrediente
       var novoIngredienteLabel = document.createElement("label");
-      novoIngredienteLabel.style.width = "60%";
+      novoIngredienteLabel.style.width = "55%";
       var novoIngredienteInput = document.createElement("input");
       novoIngredienteInput.type = "text";
       novoIngredienteInput.className = "input";
@@ -847,7 +1067,7 @@
 
       // Cria o campo de entrada para a quantidade
       var novaQuantidadeLabel = document.createElement("label");
-      novaQuantidadeLabel.style.width = "15%";
+      novaQuantidadeLabel.style.width = "20%";
       var novaQuantidadeInput = document.createElement("input");
       novaQuantidadeInput.type = "number";
       novaQuantidadeInput.className = "input";
@@ -923,16 +1143,30 @@
     let btnCriar = document.querySelector(".submit");
     let overlay = document.querySelector(".overlay");
     let btnCancel = document.querySelector(".cancel");
+    let btnVideo = document.querySelector(".adicionarVideos");
+    let formVideo = document.querySelector(".addVideo");
+    let btnCancelVideo = document.querySelector(".cancelVideo");
 
-     form.classList.add("hidden");
+    form.classList.add("hidden");
+    formVideo.classList.add("hidden");
 
     btnAdd.addEventListener("click", function () {
       form.classList.remove("hidden");
       overlay.classList.remove("hidden");
     });
 
+    btnVideo.addEventListener("click", function () {
+      formVideo.classList.remove("hidden");
+      overlay.classList.remove("hidden");
+    });
+
     btnCancel.addEventListener("click", function () {
       form.classList.add("hidden");
+      overlay.classList.add("hidden");
+    });
+
+    btnCancelVideo.addEventListener("click", function () {
+      formVideo.classList.add("hidden");
       overlay.classList.add("hidden");
     });
   </script>
@@ -976,5 +1210,20 @@
       var labelParaRemover = botao.parentElement;
       labelParaRemover.parentNode.removeChild(labelParaRemover);
     }
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(".logo-slider").slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        dots: true,
+        arrows: true,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        infinite: true,
+      });
+    });
   </script>
 </html>

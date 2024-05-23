@@ -1,20 +1,13 @@
 package service;
 
 import spark.*;
-import dao.UserDAO;
-import model.Calorias;
-import model.Perfil;
-import model.Calorias;
-import model.User;
+import dao.*;
+import model.*;
 import java.security.*;
 import java.time.*;
-
-import org.eclipse.jetty.server.LocalConnector;
-
-import static spark.Spark.halt;
-import static spark.Spark.redirect;
-
 import java.math.*;
+import static spark.Spark.halt;
+
 
 public class UserService {
 	private UserDAO userDAO = new UserDAO();

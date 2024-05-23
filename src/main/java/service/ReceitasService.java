@@ -36,7 +36,6 @@ public class ReceitasService {
     User currentUser = session.attribute("currentUser");
     IngredientesDAO ingredientesDAO = new IngredientesDAO();
     ReceitaIngredienteDAO receitaIngredienteDAO = new ReceitaIngredienteDAO();
-    ReceitasDAO receitasDAO = new ReceitasDAO();
     
     if (currentUser == null) {
         response.redirect("/login");
