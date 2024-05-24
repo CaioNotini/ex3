@@ -197,4 +197,9 @@ public void logout(Request request, Response response) {
 		double result =  (tmb * activity);
 		return (int) result;
 	}
+
+
+	public String getNome(int id){
+		return userDAO.getNome(id);
+	}
 }

@@ -174,6 +174,20 @@ public class UserDAO extends DAO {
 		return calorias;
 	}
 
+	public String getNome(int id){
+        String sql = "SELECT nome FROM usuarios WHERE id_usuario = ?";
+            try (PreparedStatement ps = conexao.prepareStatement(sql)) {
+                ps.setInt(1, id);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    return rs.getString("nome");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        return null; 
+    }
+
 	
 	public boolean update(User user) {
 		boolean status = false;

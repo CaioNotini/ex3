@@ -6,6 +6,7 @@ public class Avaliacoes {
     private int id_receita;
     private int nota;
     public String comentario;
+    public String nome;
 
     public Avaliacoes(){
 
@@ -64,6 +65,14 @@ public class Avaliacoes {
 
     public void setComentario(String comentario){
         this.comentario = comentario;
+    }
+
+    public String getNome(){
+        return nome;
+    }
+
+    public void setNome(String nome){
+        this.nome = nome;
     }
 
 

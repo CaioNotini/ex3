@@ -121,4 +121,28 @@ public int contador(int id){
     return total;
 }
 
+public List<Avaliacoes> getNotas(int id){
+    List<Avaliacoes> avaliacoes = new ArrayList<>();
+
+    try{
+        String sql = "SELECT * FROM avaliacao WHERE id_receita = ?";
+
+        PreparedStatement ps = conexao.prepareStatement(sql);
+        ps.setInt(1, id);
+
+        ResultSet rs = ps.executeQuery();
+        while(rs.next()){
+            Avaliacoes av = new Avaliacoes();
+            av.setId_usuario(rs.getInt("id_usuario"));
+            av.setNota(rs.getInt("nota"));
+            av.setComentario(rs.getString("descricao"));
+            avaliacoes.add(av);
+        }
+    } catch (SQLException e){
+        e.printStackTrace();
+    }
+
+    return avaliacoes;
+}
+
 }

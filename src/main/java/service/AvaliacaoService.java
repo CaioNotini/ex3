@@ -3,6 +3,7 @@ package service;
 import spark.*;
 import dao.*;
 import model.*;
+import java.util.List;
 ;
 
 
@@ -46,5 +47,9 @@ public class AvaliacaoService {
 
 	public int total(int id){
 		return avaliacoesDAO.contador(id);
+	}
+
+	public List<Avaliacoes> exibir(int id){
+		return avaliacoesDAO.getNotas(id);
 	}
 }

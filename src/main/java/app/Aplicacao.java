@@ -125,18 +125,23 @@ public class Aplicacao {
         Receitas rc = receitasService.exibirReceitas(id);
         int av = avaliacaoService.total(id);
         List<Passos> ps = receitasService.getPassos(id);
+        List<Avaliacoes> nt = avaliacaoService.exibir(id);
 
         for(ReceitaIngrediente in : ri ){
-            System.out.println("Ingrediente ID: " + in.getidIngredientes() + ", Quantidade: " + in.getObservacao());
-
             String nome = ingredientesService.getNome(in.getidIngredientes());
             in.setNomeIngrediente(nome);
+        }
+
+        for(Avaliacoes avaliacoes : nt){
+            String nome = userService.getNome(avaliacoes.getId_usuario());
+            avaliacoes.setNome(nome);
         }
 
         model.put("ingredientes", ri);
         model.put("passos", ps);
         model.put("total", av);
         model.put("receita", rc);
+        model.put("avaliacoes", nt);
 
         Session session = request.session(false);
          String flashMessage = null;
