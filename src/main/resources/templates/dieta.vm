@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>BH Saúde</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp"
+      crossorigin="anonymous"
+    />
+
+    <!------ FontAwesome ------->
+    <script
+      src="https://kit.fontawesome.com/c8e4d183c2.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic"
+      rel="stylesheet"
+    />
+  </head>
+  <header>
+    <a href="/index" style="color: #000; text-decoration: none">
+      <div class="logo active" style="margin-top: 10px">BH Saúde</div>
+    </a>
+    <input type="checkbox" id="nav_check" hidden />
+    <nav>
+      <ul>
+        <li>
+          <a href="/receitas" class="">Receitas</a>
+        </li>
+        <li>
+          <a href="/alimentos" class="">Alimentos</a>
+        </li>
+        <li>
+          <a href="/gerador">Crie sua Dieta</a>
+        </li>
+        <li>
+          <a href="/profile">Conta</a>
+        </li>
+        <li></li>
+        <li>
+          <a class="carrinho" href="/mercado"
+            ><i class="fa fa-shopping-cart"></i>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <label for="nav_check" class="hamburger">
+      <div></div>
+      <div></div>
+      <div></div>
+    </label>
+  </header>
+  <body>
+    <div class="box" style="margin-top: 0px">
+      <div class="texto" style="margin-top: 0px">
+        <p style="font-size: small; margin-bottom: -5px">
+          <a
+            href="/index"
+            class="b"
+            style="text-decoration: none; color: #bab9b998"
+            >BH Saúde </a
+          >> Dieta
+        </p>
+        <h1>Dieta</h1>
+        <h5 style="margin-left: 200px; margin-right: 200px; font-size: 1rem">
+          Com auxílio da BH Saúde descubra as melhores opções de receitas e
+          pratos para você consumir em diferentes momentos do seu dia dia
+          baseado em ssuas preferências alimentares e na sua quantidade calórica
+          ideal!
+        </h5>
+      </div>
+    </div>
+
+    <div class="texto">
+      <h1>$dieta.nome</h1>
+      <p style="font-size: x-small"><b>For:</b> $dieta.nomeUsuario</p>
+      <div class="escolha f">
+        <p class="adicionar infos">
+        #if($receita)
+          <i class="fas fa-utensils"></i> Tipo de Dieta: $dieta.tipoAlimentacao
+        #end
+        </p>
+        <p class="infos"><i class="fas fa-carrot"></i> Calorias Toatais: $dieta.calorias</p>
+        <p class="infos">
+          <i class="fas fa-calendar-alt"></i> Data de Criação: $dieta.data
+        </p>
+      </div>
+    </div>
+
+<main>
+  <div class="main">
+    #foreach($receitas in $receita)
+    <div class="card">
+      <a href="/detalhes/$receitas.id_receita"> <!-- Defina o link correto -->
+        <h3>$receitas.horario</h3>
+        <p style="font-size: small; margin-left: 30px">$receitas.totalCalorias</p>
+        <div class="card-body">
+          <iframe
+            class="card-iframe"
+            src="https://www.youtube.com/embed/$receitas.getCodigoVideo()"
+            frameborder="0"
+            allowfullscreen
+            style="width: 40%; height: 90%;"
+          ></iframe>
+          <div class="card-content">
+            <p style="font-size: large"><b>$receitas.nome</b></p>
+            <p class="desc">
+              $receitas.descricao
+            </p>
+          </div>
+        </div>
+        <div class="detalhes">
+          <!-- Adicione detalhes aqui, se necessário -->
+        </div>
+      </a>
+    </div>
+    #end
+  </div>
+</main>
+
+  </body>
+  <footer></footer>
+</html>
+
+<style>
+  /* Navbar */
+
+  header {
+    position: sticky;
+    background: #fff;
+    width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 50px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.05);
+    z-index: 1000;
+    transition: background-color 0.3s ease;
+  }
+
+  header a {
+    text-decoration: none;
+    color: #333; /* Dark grey text */
+  }
+
+  header .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: dodgerblue; /* Brand color */
+    text-transform: uppercase;
+  }
+
+  header nav ul {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+  }
+
+  header nav ul li a {
+    padding: 10px 15px;
+    margin: 0 5px;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: color 0.3s ease, border-color 0.3s ease;
+  }
+
+  header nav ul li a:hover,
+  header nav ul li a.active {
+    opacity: 0.7;
+    border-bottom: 2px solid dodgerblue;
+  }
+
+  .hamburger {
+    display: none;
+    cursor: pointer;
+  }
+
+  .hamburger div {
+    background-color: #333;
+  }
+
+  @media (max-width: 900px) {
+    header {
+      padding: 0 20px;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .hamburger {
+      display: block;
+    }
+
+    header nav {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    header #nav_check:checked ~ nav {
+      transform: translateX(0);
+    }
+
+    header nav ul {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    header nav ul li a {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  /* Texto */
+  .texto {
+    margin-top: 50px;
+    text-align: center;
+  }
+
+  body {
+  }
+
+  .box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 240px;
+    background-color: rgb(230, 247, 255);
+    margin-bottom: 50px;
+    align-items: center;
+  }
+
+  .f {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 70px;
+  }
+
+  .escolha {
+    margin: 0 auto;
+    max-width: 900px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    height: 60px;
+    margin-top: 20px;
+  }
+
+  .infos {
+    margin-top: 15px;
+    background-color: white;
+    color: dodgerblue;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+
+  /* Main */
+  main {
+    display: flex;
+    justify-items: center;
+    align-items: center;
+  }
+
+  .main {
+    margin: 0 auto;
+    margin-top: 70px;
+    height: 800px;
+    width: 800px;
+    border-radius: 10px;
+    box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.08),
+      -4px -4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .card {
+    width: 100%;
+    height: 300px;
+    box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.08),
+      -4px -4px 2px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    color: black;
+  }
+
+  a {
+    text-decoration: none;
+    color:black;
+  }
+
+  .card h3 {
+    margin-top: 20px;
+    margin-left: 30px;
+    margin-bottom: -0px;
+  }
+
+  .card-body {
+    display: flex;
+    align-items: center;
+    margin-top: -30px;
+  }
+
+  .card-iframe {
+    width: 40%;
+    border: none;
+  }
+
+  .card-content {
+    padding: 20px;
+    width: 60%;
+    box-sizing: border-box;
+  }
+
+  .card-content p {
+    margin: 0;
+  }
+
+  .card-content .desc {
+    margin-top: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Detalhes */
+
+  .detalhes {
+    display: none;
+    position: relative;
+    top: -30%;
+    left: 90%;
+    height: 500px;
+    width: 150px;
+    z-index: 100;
+    box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.08),
+      -4px -4px 12px rgba(0, 0, 0, 0.08);
+  }
+  /* Footer */
+  footer {
+    height: 150px;
+  }
+</style>

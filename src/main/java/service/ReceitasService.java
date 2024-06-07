@@ -138,4 +138,8 @@ public List<ReceitaIngrediente> getReceitaIngrediente(int id){
     return receitaIngredienteDAO.getId(id);
 }
 
+public List<Receitas> getReceitas(List<DietaReceita> dr){
+    return receitasDAO.getReceitasByIds(dr);
+}
+
 }

@@ -107,93 +107,112 @@
     </div>
 
     <div class="box">
-      <main>
-        <div class="b">
-          <ul class="opcoes">
-            <li>
-              <button value="Tudo" class="opcao">
-                <img
-                  src="imagens/meal.png"
-                  alt=""
-                  style="height: 50px; width: 50px"
-                />
-                <span>Tudo</span>
-              </button>
-            </li>
-            <li>
-              <button value="Vegetariano" class="opcao">
-                <img
-                  src="imagens/vegetarian.png"
-                  alt=""
-                  style="height: 50px; width: 50px"
-                />
-                <span>Vegetariano</span>
-              </button>
-            </li>
-            <li>
-              <button value="Vegano" class="opcao">
-                <img
-                  src="imagens/salad.png"
-                  alt=""
-                  style="height: 50px; width: 50px"
-                />
-                <span>Vegano</span>
-              </button>
-            </li>
-            <li>
-              <button value="Paleo" class="opcao">
-                <img
-                  src="imagens/meat.png"
-                  alt=""
-                  style="height: 50px; width: 50px"
-                />
-                <span>Paleo</span>
-              </button>
-            </li>
-            <li>
-              <button value="Mediterranea" class="opcao">
-                <img
-                  src="imagens/fish.png"
-                  alt=""
-                  style="height: 50px; width: 50px"
-                />
-                <span>Mediterrânea</span>
-              </button>
-            </li>
-            <li>
-              <button value="Low" class="opcao">
-                <img
-                  src="imagens/low-carb.png"
-                  alt=""
-                  style="height: 50px; width: 50px"
-                />
-                <span>Low Carb</span>
-              </button>
-            </li>
-          </ul>
+      <form action="/gerador" method="post">
+        <main>
+          <div class="b">
+            <ul class="opcoes">
+              <li>
+                <label class="opcao">
+                  <input type="radio" name="tipo" value="Tudo" />
+                  <img
+                    src="imagens/meal.png"
+                    alt=""
+                    style="height: 50px; width: 50px"
+                  />
+                  <span>Tudo</span>
+                </label>
+              </li>
+              <li>
+                <label class="opcao">
+                  <input type="radio" name="tipo" value="Vegetariano" />
+                  <img
+                    src="imagens/vegetarian.png"
+                    alt=""
+                    style="height: 50px; width: 50px"
+                  />
+                  <span>Vegetariano</span>
+                </label>
+              </li>
+              <li>
+                <label class="opcao">
+                  <input type="radio" name="tipo" value="Vegano" />
+                  <img
+                    src="imagens/salad.png"
+                    alt=""
+                    style="height: 50px; width: 50px"
+                  />
+                  <span>Vegano</span>
+                </label>
+              </li>
+              <li>
+                <label class="opcao">
+                  <input type="radio" name="tipo" value="Paleo" />
+                  <img
+                    src="imagens/meat.png"
+                    alt=""
+                    style="height: 50px; width: 50px"
+                  />
+                  <span>Paleo</span>
+                </label>
+              </li>
+              <li>
+                <label class="opcao">
+                  <input type="radio" name="tipo" value="Mediterranea" />
+                  <img
+                    src="imagens/fish.png"
+                    alt=""
+                    style="height: 50px; width: 50px"
+                  />
+                  <span>Mediterrânea</span>
+                </label>
+              </li>
+              <li>
+                <label class="opcao">
+                  <input type="radio" name="tipo" value="Low" />
+                  <img
+                    src="imagens/low-carb.png"
+                    alt=""
+                    style="height: 50px; width: 50px"
+                  />
+                  <span>Low Carb</span>
+                </label>
+              </li>
+            </ul>
+          </div>
+        </main>
+        <div class="l">
+          <div class="info-group" style="margin-bottom: 10px">
+            <label for="nome" style="font-size: medium">Nome Dieta:</label>
+            <input class="input" type="text" name="nome" placeholder="Nome" />
+          </div>
+          <div class="info-group">
+            <label for="calories" style="font-size: medium"
+              >Desejo comer:</label
+            >
+            <input
+              class="input"
+              type="number"
+              min="800"
+              name="calories"
+              placeholder="Calorias"
+            />
+          </div>
+          <div class="info-group">
+            <label for="meals" style="margin-top: 20px; margin-left: 5em"
+              >em</label
+            >
+            <select id="meals" name="meals">
+              <option value="3">3 refeições</option>
+              <option value="4">4 refeições</option>
+              <option value="5">5 refeições</option>
+              <option value="6">6 refeições</option>
+            </select>
+          </div>
         </div>
-      </main>
-      <div class="l">
-        <div class="info-group">
-          <label for="calories" style="font-size: medium">Desejo comer:</label>
-          <input class="input" type="number" min="800" placeholder="Calorias" />
+        <div class="c">
+          <button type="submit" class="criar">Criar</button>
         </div>
-        <div class="info-group">
-          <label for="meals" style="margin-top: 20px; margin-left: 5em"
-            >em</label
-          >
-          <select id="meals" name="meals">
-            <option value="3">3 refeições</option>
-            <option value="4">4 refeições</option>
-            <option value="5">5 refeições</option>
-            <option value="6">6 refeições</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="c">
-        <button type="submit" class="criar">Criar</button>
-      </div>
+      </form>
     </div>
   </body>
   <footer></footer>
@@ -252,6 +271,10 @@
       background-color: white;
     }
 
+    .opcao input[type="radio"] {
+      display: none;
+    }
+
     button {
       transition: background-color 0.2s, color 0.2s;
     }
@@ -291,6 +314,7 @@
       justify-content: center;
       align-items: center;
       margin-left: -1em;
+      margin-top: 10px;
     }
 
     .l-group {

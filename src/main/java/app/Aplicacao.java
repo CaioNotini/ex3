@@ -17,6 +17,7 @@ public class Aplicacao {
     private static IngredientesService ingredientesService = new IngredientesService();
     private static AvaliacaoService avaliacaoService = new AvaliacaoService();
     private static VideoCurtoService videoCurtoService = new VideoCurtoService();
+    private static DietaService dietaService = new DietaService();
 
     public static void main(String[] args) {
         
@@ -40,6 +41,8 @@ public class Aplicacao {
 
         get("/mercado", (request,response)-> mercado(request,response), engine);
 
+        get("/dieta/:id", (request,response)-> dieta(request,response), engine);
+
 
         get("/detalhes/:id", (request,response)-> detalhes(request,response), engine);
         post("/avalie/:id", (request, response) -> {
@@ -50,6 +53,8 @@ public class Aplicacao {
 
 
         get("/gerador", (request,response)-> gerador(request,response), engine);
+        post("/gerador", (request, response) -> dietaService.register(request, response));
+ 
 
         get("/alimentos", (request,response)-> alimentos(request,response), engine);
         post("/alimentos", (request, response) -> ingredientesService.register(request, response));
@@ -171,11 +176,18 @@ public class Aplicacao {
             User currentUser = session.attribute("currentUser");
             if (currentUser != null) {
                 UserDAO userDAO = new UserDAO();
+                DietaDAO dietaDAO = new DietaDAO();
                 Calorias calorias = userDAO.getCalorias(currentUser.getId());
+                List<Dieta> dietas = dietaDAO.getDietas(currentUser.getId());
+
+                for(Dieta di : dietas){
+                    System.out.println(di.getID_Dieta());
+                }
 
                 model.put("user", currentUser);
                 model.put("calorias", calorias);
                 model.put("flash", message);
+                model.put("dietas", dietas);
             }
         }
         return new ModelAndView(model, "templates/profile.vm");
@@ -194,6 +206,32 @@ public class Aplicacao {
 		HashMap<String, Object> model = new HashMap<>();
 
 		return new ModelAndView(model, "paginas/gerador.html");
+	}
+
+    public static ModelAndView dieta(Request request, Response response) {
+		HashMap<String, Object> model = new HashMap<>();
+
+        ReceitasDAO receitasDAO = new ReceitasDAO();
+        DietaDAO dietaDAO = new DietaDAO();
+        DietaReceitaDAO dietaReceitaDAO = new DietaReceitaDAO();
+
+        int id = Integer.parseInt(request.params(":id"));
+
+        Dieta di = dietaService.exibirDieta(id);
+        List<DietaReceita> dr = dietaService.getIdsReceitas(id);
+        List<Receitas> re = receitasService.getReceitas(dr);
+
+       System.out.println(di.getTipoAlimentacao());
+
+        String nome = userService.getNome(di.getID_Usuario());
+            di.setNomeUsuario(nome);
+
+        
+
+        model.put("dieta", di);
+        model.put("receita", re);
+
+		return new ModelAndView(model, "templates/dieta.vm");
 	}
 
      public static ModelAndView alimentos(Request request, Response response) {

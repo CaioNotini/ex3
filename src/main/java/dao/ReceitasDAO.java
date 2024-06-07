@@ -103,6 +103,8 @@ public List<Receitas> getReceita(){
     return receitas;
 }
 
+
+
 public Receitas getReceita(int id){
     Receitas receita = null;
 
@@ -134,6 +136,17 @@ public Receitas getReceita(int id){
 
     return receita;
 }
+
+    public List<Receitas> getReceitasByIds(List<DietaReceita> idsReceitas) {
+        List<Receitas> receitas = new ArrayList<>();
+        for (DietaReceita dr : idsReceitas) {
+            Receitas receita = getReceita(dr.getId_receita());
+            if (receita != null) {
+                receitas.add(receita);
+            }
+        }
+        return receitas;
+    }
 
 public int getId(String nome){
     String sql = "SELECT id_receita FROM receita WHERE nome = ?";
@@ -187,6 +200,120 @@ public List<Receitas> getAvaliadas(){
     }
     return receitas;
 }
- 
+
+    public int getCafe(String tipo, double caloriasMenor, double caloriasMaior) {
+        String sql = "SELECT id_receita FROM receita WHERE tipo = ? AND horario = 'Café' AND totalcalorias BETWEEN ? AND ? ORDER BY RANDOM() LIMIT 1";
+
+       try{
+            PreparedStatement ps = conexao.prepareStatement(sql);    
+
+            ps.setString(1, tipo);
+            ps.setDouble(2, caloriasMenor);
+            ps.setDouble(3, caloriasMaior);
+
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                    return rs.getInt("id_receita");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return 0;
+    }
+
+        public int getAlmoco(String tipo, double caloriasMenor, double caloriasMaior) {
+        String sql = "SELECT id_receita FROM receita WHERE tipo = ? AND horario = 'Almoço' AND totalcalorias BETWEEN ? AND ? ORDER BY RANDOM() LIMIT 1";
+
+       try{
+            PreparedStatement ps = conexao.prepareStatement(sql);    
+
+            ps.setString(1, tipo);
+            ps.setDouble(2, caloriasMenor);
+            ps.setDouble(3, caloriasMaior);
+
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                    return rs.getInt("id_receita");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return 0;
+    }
+
+    
+        public int getJantar(String tipo, double caloriasMenor, double caloriasMaior) {
+        String sql = "SELECT id_receita FROM receita WHERE tipo = ? AND horario = 'Jantar' AND totalcalorias BETWEEN ? AND ? ORDER BY RANDOM() LIMIT 1";
+
+       try{
+            PreparedStatement ps = conexao.prepareStatement(sql);    
+
+            ps.setString(1, tipo);
+            ps.setDouble(2, caloriasMenor);
+            ps.setDouble(3, caloriasMaior);
+
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                    return rs.getInt("id_receita");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return 0;
+    }
+
+    
+        public int getLanche(String tipo, double caloriasMenor, double caloriasMaior) {
+        String sql = "SELECT id_receita FROM receita WHERE tipo = ? AND horario = 'Lanche' AND totalcalorias BETWEEN ? AND ? ORDER BY RANDOM() LIMIT 1";
+
+       try{
+            PreparedStatement ps = conexao.prepareStatement(sql);    
+
+            ps.setString(1, tipo);
+            ps.setDouble(2, caloriasMenor);
+            ps.setDouble(3, caloriasMaior);
+
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                    return rs.getInt("id_receita");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return 0;
+    }
+
+            public int getSobremesa(String tipo, double caloriasMenor, double caloriasMaior) {
+        String sql = "SELECT id_receita FROM receita WHERE tipo = ? AND horario = 'Sobremesa' AND totalcalorias BETWEEN ? AND ? ORDER BY RANDOM() LIMIT 1";
+
+       try{
+            PreparedStatement ps = conexao.prepareStatement(sql);    
+
+            ps.setString(1, tipo);
+            ps.setDouble(2, caloriasMenor);
+            ps.setDouble(2, caloriasMaior);
+
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                    return rs.getInt("id_receita");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
+        return 0;
+    }
 }
+
+ 
+
 
