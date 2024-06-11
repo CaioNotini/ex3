@@ -202,4 +202,8 @@ public void logout(Request request, Response response) {
 	public String getNome(int id){
 		return userDAO.getNome(id);
 	}
+
+	public Calorias getCalorias(int id){
+		return userDAO.getCalorias(id);
+	}
 }

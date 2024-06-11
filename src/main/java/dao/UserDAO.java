@@ -34,27 +34,32 @@ public class UserDAO extends DAO {
 
 		return status;
 	}
+public boolean delete(User user) {
+    boolean status = false;
 
-	public boolean delete(User user){
-		boolean status = false;
-		try{
-			String sql = "DELETE FROM usuarios WHERE id_usuario = ?";
+    if (user.getId() == 9) {
+        System.out.println("Usuário com ID 9 não pode ser deletado.");
+        return status; 
+    }
 
-			PreparedStatement preparedStatement = conexao.prepareStatement(sql);
+    try {
+        String sql = "DELETE FROM usuarios WHERE id_usuario = ?";
 
-			preparedStatement.setInt(1, user.getId());
+        PreparedStatement preparedStatement = conexao.prepareStatement(sql);
 
-			preparedStatement.executeUpdate();
-			preparedStatement.close();
+        preparedStatement.setInt(1, user.getId());
 
-			status=true;
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
 
-		} catch (SQLException e){
-			System.err.println(e);
-		}
+        status = true;
 
-	return status;
-	}
+    } catch (SQLException e) {
+        System.err.println(e);
+    }
+
+    return status;
+}
 
 	public boolean insertProfile(Perfil perfil){
 		boolean status = false;

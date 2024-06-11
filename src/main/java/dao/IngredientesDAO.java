@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.ArrayList;
 
 
-import model.User;
-import model.Perfil;
-import model.Calorias;
 import model.Ingredientes;
 
 public class IngredientesDAO extends DAO{

@@ -102,6 +102,7 @@
       </div>
     </div>
 
+    <div class="success-flex">
     #if($flash)
     <div class="success">
       <div class="success__icon">
@@ -135,8 +136,8 @@
         </svg>
       </div>
     </div>
-
     #end
+    </div>
 
     <div class="escolha f">
       <button type="button" class="adicionar btn-link">
@@ -382,32 +383,7 @@
       </div>
     </div>
 
-    <div class="container">
-      <h2 class="title">Rápido e Prático</h2>
-      <p>Veja Vídeos Curtos e rápidos de diferentes receitas e aproveite!</p>
-
-      <div class="logo-slider">
-        #foreach($video in $videos)
-
-        <div class="item">
-          <div class="card-video">
-            <iframe
-              src="$video.url"
-              frameborder="0"
-              allow="autoplay; encrypted-media"
-              allowfullscreen
-            ></iframe>
-            <div class="category"><h5>$video.titulo</h5></div>
-            <div class="heading">
-              <div class="author">
-                By <span class="name">$video.getAutor()</span> $video.data
-              </div>
-            </div>
-          </div>
-        </div>
-        #end
-      </div>
-    </div>
+  
 
     <div class="add adjust addVideo">
       <form action="/videos" method="post" class="form">
@@ -1079,6 +1055,12 @@
     }
 
     /* Mensagem de inserção */
+    .success-flex{
+      margin-top: 20px;
+      display:flex;
+      align-items: center;
+      justify-content:center;
+  }
 
     .success {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
@@ -1089,7 +1071,7 @@
       display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: start;
+      justify-content: center;
       background: #edfbd8;
       border-radius: 8px;
       border: 1px solid #84d65a;

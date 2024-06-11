@@ -92,18 +92,18 @@ public int[] getIdReceitas(int refeicoes, String tipo, double calorias) {
         sobremesa = 0.1;
     }
 
-    idReceitas.add(receitasDAO.getCafe(tipo, calorias * cafe * 0.7, calorias * cafe * 1.3));
-    idReceitas.add(receitasDAO.getAlmoco(tipo, calorias * almoco * 0.7, calorias * almoco * 1.3));
-    idReceitas.add(receitasDAO.getJantar(tipo, calorias * jantar * 0.7, calorias * jantar * 1.3));
+    idReceitas.add(receitasDAO.getCafe(tipo, (calorias * cafe) - 50 , calorias * cafe + 50));
+    idReceitas.add(receitasDAO.getAlmoco(tipo, calorias * almoco - 80, calorias * almoco + 80));
+    idReceitas.add(receitasDAO.getJantar(tipo, calorias * jantar - 80, calorias * jantar + 80));
 
     if (refeicoes >= 4) {
-        idReceitas.add(receitasDAO.getLanche(tipo, calorias * lanche1 * 0.7, calorias * lanche1 * 1.3));
+        idReceitas.add(receitasDAO.getLanche(tipo, calorias * lanche1 - 50, calorias * lanche1 + 50));
     }
     if (refeicoes >= 5) {
-        idReceitas.add(receitasDAO.getLanche(tipo, calorias * lanche2 * 0.7, calorias * lanche2 * 1.3));
+        idReceitas.add(receitasDAO.getLanche(tipo, calorias * lanche2 - 50, calorias * lanche2 + 50));
     }
     if (refeicoes == 6) {
-        idReceitas.add(receitasDAO.getSobremesa(tipo, calorias * sobremesa * 0.7, calorias * sobremesa * 1.3));
+        idReceitas.add(receitasDAO.getSobremesa(tipo, calorias * sobremesa - 30, calorias * sobremesa + 30));
     }
 
     
@@ -123,7 +123,34 @@ public int[] getIdReceitas(int refeicoes, String tipo, double calorias) {
         return dietaReceitaDAO.getId(id);
     }
 
-    
+    public Object delete(Request request, Response response){
+        Session session = request.session(false);
+        User currentUser = session.attribute("currentUser");
 
+        if(currentUser == null){
+            response.redirect("/login");
+            return null;
+        }
+
+        String idDietaParam = request.queryParams("idDieta");
+        System.out.println(idDietaParam);
+            if (idDietaParam != null && !idDietaParam.isEmpty()) {
+            int id = Integer.parseInt(idDietaParam);
+            boolean deleteSuccess = dietaDAO.delete(id);
+                if (deleteSuccess) {
+                    request.session().attribute("flash", "Dieta excluída com sucesso!");
+                    response.redirect("/gerador");
+               }
+               else {
+                    response.status(500); 
+                    response.body("Erro ao deletar a dieta.");
+                }
+            } else {
+                    response.status(400);
+                    response.body("ID da dieta inválido.");
+            }
+
+        return response;
+    }
 
     }

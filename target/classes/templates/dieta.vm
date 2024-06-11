@@ -57,6 +57,7 @@
     </label>
   </header>
   <body>
+    <div class="overlay hidden"></div>
     <div class="box" style="margin-top: 0px">
       <div class="texto" style="margin-top: 0px">
         <p style="font-size: small; margin-bottom: -5px">
@@ -82,50 +83,103 @@
       <p style="font-size: x-small"><b>For:</b> $dieta.nomeUsuario</p>
       <div class="escolha f">
         <p class="adicionar infos">
-        #if($receita)
+          #if($receita)
           <i class="fas fa-utensils"></i> Tipo de Dieta: $dieta.tipoAlimentacao
-        #end
+          #end
         </p>
-        <p class="infos"><i class="fas fa-carrot"></i> Calorias Toatais: $dieta.calorias</p>
+        <p class="infos">
+          <i class="fas fa-carrot"></i> Calorias Toatais: $dieta.calorias
+        </p>
         <p class="infos">
           <i class="fas fa-calendar-alt"></i> Data de Criação: $dieta.data
         </p>
       </div>
     </div>
 
-<main>
-  <div class="main">
-    #foreach($receitas in $receita)
-    <div class="card">
-      <a href="/detalhes/$receitas.id_receita"> <!-- Defina o link correto -->
-        <h3>$receitas.horario</h3>
-        <p style="font-size: small; margin-left: 30px">$receitas.totalCalorias</p>
-        <div class="card-body">
-          <iframe
-            class="card-iframe"
-            src="https://www.youtube.com/embed/$receitas.getCodigoVideo()"
-            frameborder="0"
-            allowfullscreen
-            style="width: 40%; height: 90%;"
-          ></iframe>
-          <div class="card-content">
-            <p style="font-size: large"><b>$receitas.nome</b></p>
-            <p class="desc">
-              $receitas.descricao
+    <main>
+      <div class="main">
+        #foreach($receitas in $receita)
+        <div class="card">
+          <a href="/detalhes/$receitas.id_receita">
+            <h3>$receitas.horario</h3>
+            <p style="font-size: small; margin-left: 30px">
+              $receitas.totalCalorias kcal
+            </p>
+            <div class="card-body">
+              <iframe
+                class="card-iframe"
+                src="https://www.youtube.com/embed/$receitas.getCodigoVideo()"
+                frameborder="0"
+                allowfullscreen
+                style="width: 40%; height: 90%"
+              ></iframe>
+              <div class="card-content">
+                <p style="font-size: large"><b>$receitas.nome</b></p>
+                <p class="desc">$receitas.descricao</p>
+              </div>
+            </div>
+            <div class="detalhes"></div>
+          </a>
+        </div>
+        #end
+      </div>
+    </main>
+    <div class="delete">
+      <button class="noselect">
+        <span class="text">Deletar Dieta</span
+        ><span class="icon"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"
+            ></path>
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div class="mensagem-delete">
+      <div class="card-delete">
+        <div class="header">
+          <div class="image">
+            <svg
+              aria-hidden="true"
+              stroke="currentColor"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              fill="none"
+            >
+              <path
+                d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z"
+                stroke-linejoin="round"
+                stroke-linecap="round"
+              ></path>
+            </svg>
+          </div>
+          <div class="content">
+            <span class="title">Deletar Dieta</span>
+            <p class="message">
+              Deseja mesmo exluir essa dieta? Todo plano alimentar será
+              permanentemente excluído
             </p>
           </div>
+          <div class="actions">
+            <form action="/deletar-dieta" method="post">
+              <input class="hidden" name="idDieta" value="$dieta.getID_Dieta()"> 
+              <button type="submit" class="desactivate">Excluir</button>
+            </form>
+            <button class="cancel" type="button">Cancelar</button>
+          </div>
         </div>
-        <div class="detalhes">
-          <!-- Adicione detalhes aqui, se necessário -->
-        </div>
-      </a>
+      </div>
     </div>
-    #end
-  </div>
-</main>
 
+    <footer></footer>
+    <div class="overlay hidden"></div>
   </body>
-  <footer></footer>
 </html>
 
 <style>
@@ -281,7 +335,6 @@
   .main {
     margin: 0 auto;
     margin-top: 70px;
-    height: 800px;
     width: 800px;
     border-radius: 10px;
     box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.08),
@@ -290,7 +343,7 @@
 
   .card {
     width: 100%;
-    height: 300px;
+    max-height: 300px;
     box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.08),
       -4px -4px 2px rgba(0, 0, 0, 0.08);
     overflow: hidden;
@@ -299,7 +352,7 @@
 
   a {
     text-decoration: none;
-    color:black;
+    color: black;
   }
 
   .card h3 {
@@ -340,6 +393,13 @@
 
   /* Detalhes */
 
+  .delete {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
   .detalhes {
     display: none;
     position: relative;
@@ -351,8 +411,225 @@
     box-shadow: 0px 10px 12px rgba(0, 0, 0, 0.08),
       -4px -4px 12px rgba(0, 0, 0, 0.08);
   }
+
+  /* Delete */
+
+  .delete button {
+    width: 200px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: red;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+    background: #e62222;
+  }
+
+  .delete button,
+  button span {
+    transition: 200ms;
+  }
+
+  .delete button .text {
+    transform: translateX(35px);
+    color: white;
+    font-weight: bold;
+  }
+
+  .delete button .icon {
+    position: absolute;
+    transform: translateX(110px);
+    height: 40px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .delete button svg {
+    width: 15px;
+    fill: #eee;
+  }
+
+  .delete button:hover {
+    background: #ff3636;
+  }
+
+  .delete button:hover .text {
+    color: transparent;
+  }
+
+  .delete button:hover .icon {
+    width: 187.5px;
+    border-left: none;
+    transform: translateX(0);
+  }
+
+  .delete button:focus {
+    outline: none;
+  }
+
+  .delete button:active .icon svg {
+    transform: scale(0.8);
+  }
   /* Footer */
   footer {
-    height: 150px;
+    margin-top: 100px;
+  }
+
+  /* Overlay e Hidden */
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 230%;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(3px);
+    z-index: 5;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  /* Mensagem delete */
+  .mensagem-delete .card-delete {
+    overflow: hidden;
+    position: absolute;
+    left: 40.5%;
+    top: 160%;
+    background-color: #ffffff;
+    text-align: left;
+    border-radius: 0.5rem;
+    max-width: 290px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+      0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    z-index: 10;
+  }
+
+  .mensagem-delete .header {
+    padding: 1.25rem 1rem 1rem 1rem;
+    background-color: #ffffff;
+  }
+
+  .mensagem-delete .image {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #fee2e2;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 9999px;
+  }
+
+  .mensagem-delete .image svg {
+    color: #dc2626;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .mensagem-delete .content {
+    margin-top: 0.75rem;
+    text-align: center;
+  }
+
+  .mensagem-delete .title {
+    color: #111827;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5rem;
+  }
+
+  .mensagem-delete .message {
+    margin-top: 0.5rem;
+    color: #6b7280;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  .mensagem-delete .actions {
+    margin: 0.75rem 1rem;
+    background-color: #f9fafb;
+  }
+
+  .mensagem-delete .desactivate {
+    display: inline-flex;
+    padding: 0.5rem 1rem;
+    background-color: #dc2626;
+    color: #ffffff;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    justify-content: center;
+    width: 100%;
+    border-radius: 0.375rem;
+    border-width: 1px;
+    border-color: transparent;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .mensagem-delete .cancel {
+    display: inline-flex;
+    margin-top: 0.75rem;
+    padding: 0.5rem 1rem;
+    background-color: #ffffff;
+    color: #374151;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 500;
+    justify-content: center;
+    width: 100%;
+    border-radius: 0.375rem;
+    border: 1px solid #d1d5db;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
   }
 </style>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  let card = document.querySelector(".card-delete");
+  let btnDelete = document.querySelector(".delete");
+  let btnCancel = document.querySelector(".cancel");
+  let overlay = document.querySelector(".overlay");
+  let header = document.querySelector("header");
+
+  card.classList.add("hidden");
+
+  btnDelete.addEventListener("click", function () {
+    card.classList.remove("hidden");
+    overlay.classList.remove("hidden");
+    header.classList.add("hidden");
+  });
+
+  btnCancel.addEventListener("click", function () {
+    card.classList.add("hidden");
+    overlay.classList.add("hidden");
+    header.classList.remove("hidden");
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key == "Escape") {
+      card.classList.add("hidden");
+      overlay.classList.add("hidden");
+      header.classList.remove("hidden");
+    }
+  });
+
+  document.addEventListener("click", function (e) {
+    const isClickInsideCard = card.contains(e.target);
+    const isClickInsideButton = btnDelete.contains(e.target) || btnCancel.contains(e.target);
+
+    if (!isClickInsideCard && !isClickInsideButton && !card.classList.contains("hidden")) {
+      card.classList.add("hidden");
+      overlay.classList.add("hidden");
+      header.classList.remove("hidden");
+    }
+  });
+});
+
+</script>

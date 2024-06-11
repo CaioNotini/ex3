@@ -101,7 +101,6 @@ public Dieta getDieta(int id){
         e.printStackTrace();
     }
 
-    System.out.println(dietas.getTipoAlimentacao());
     return dietas;
 }
 
@@ -132,7 +131,6 @@ public List<Dieta> getDietas(int id){
         e.printStackTrace();
     }
 
-    System.out.println(dieta.getTipoAlimentacao());
     return dietas;
 }
 

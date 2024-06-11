@@ -42,6 +42,8 @@ public class Aplicacao {
         get("/mercado", (request,response)-> mercado(request,response), engine);
 
         get("/dieta/:id", (request,response)-> dieta(request,response), engine);
+        post("/deletar-dieta", (request, response) -> dietaService.delete(request, response));
+
 
 
         get("/detalhes/:id", (request,response)-> detalhes(request,response), engine);
@@ -105,7 +107,6 @@ public class Aplicacao {
 
         public static ModelAndView index(Request request, Response response){
             HashMap<String,Object> model=new HashMap<>();
-            ReceitasDAO receitasDAO = new ReceitasDAO();
 
 
             List<Receitas> rc = receitasService.exibirAvaliadas();
@@ -118,12 +119,6 @@ public class Aplicacao {
      
     public static ModelAndView detalhes(Request request, Response response) {
 		HashMap<String, Object> model = new HashMap<>();
-        ReceitasDAO receitasDAO = new ReceitasDAO();
-        AvaliacoesDAO avaliacoesDAO = new AvaliacoesDAO();
-        PassosDAO passosDAO = new PassosDAO();
-        IngredientesDAO ingredientesDAO = new IngredientesDAO();
-        ReceitaIngredienteDAO receitaIngredienteDAO = new ReceitaIngredienteDAO();
-
         int id = Integer.parseInt(request.params(":id"));
 
         List<ReceitaIngrediente> ri = receitasService.getReceitaIngrediente(id);
@@ -159,39 +154,34 @@ public class Aplicacao {
 		return new ModelAndView(model, "templates/detalhes.vm");
 	}
 
-    public static ModelAndView profile(Request request, Response response) {
-        HashMap<String, Object> model = new HashMap<>();    
-        Session session = request.session(false);
-        Session session2 = request.session(false);
+public static ModelAndView profile(Request request, Response response) {
+    HashMap<String, Object> model = new HashMap<>();
 
-         String message = null;
-        if (session != null) {
-        message = session2.attribute("flash");
-        session2.removeAttribute("flash");
-        }
+    Session session = request.session(false);
 
-
-        if (session != null) {
-           
-            User currentUser = session.attribute("currentUser");
-            if (currentUser != null) {
-                UserDAO userDAO = new UserDAO();
-                DietaDAO dietaDAO = new DietaDAO();
-                Calorias calorias = userDAO.getCalorias(currentUser.getId());
-                List<Dieta> dietas = dietaDAO.getDietas(currentUser.getId());
-
-                for(Dieta di : dietas){
-                    System.out.println(di.getID_Dieta());
-                }
-
-                model.put("user", currentUser);
-                model.put("calorias", calorias);
-                model.put("flash", message);
-                model.put("dietas", dietas);
-            }
-        }
-        return new ModelAndView(model, "templates/profile.vm");
+    String message = null;
+    if (session != null) {
+        message = session.attribute("flash");
+        session.removeAttribute("flash");
     }
+
+    if (session != null) {
+        User currentUser = session.attribute("currentUser");
+        if (currentUser != null) {
+            List<Dieta> dietas = dietaService.exibirDietas(currentUser.getId());
+            Calorias calorias = userService.getCalorias(currentUser.getId());
+
+            model.put("user", currentUser);
+            model.put("calorias", calorias);
+            model.put("flash", message);
+            model.put("dietas", (dietas != null) ? dietas : new ArrayList<>());
+        }
+    }
+
+    return new ModelAndView(model, "templates/profile.vm");
+}
+
+
 
 
     
@@ -204,16 +194,20 @@ public class Aplicacao {
 
     public static ModelAndView gerador(Request request, Response response) {
 		HashMap<String, Object> model = new HashMap<>();
+        Session session = request.session(false);
+         String flashMessage = null;
+            if (session != null) {
+            flashMessage = session.attribute("flash");
+            session.removeAttribute("flash");
+            }
 
-		return new ModelAndView(model, "paginas/gerador.html");
+            model.put("flash", flashMessage);
+
+		return new ModelAndView(model, "templates/gerador.vm");
 	}
 
     public static ModelAndView dieta(Request request, Response response) {
 		HashMap<String, Object> model = new HashMap<>();
-
-        ReceitasDAO receitasDAO = new ReceitasDAO();
-        DietaDAO dietaDAO = new DietaDAO();
-        DietaReceitaDAO dietaReceitaDAO = new DietaReceitaDAO();
 
         int id = Integer.parseInt(request.params(":id"));
 
@@ -221,7 +215,6 @@ public class Aplicacao {
         List<DietaReceita> dr = dietaService.getIdsReceitas(id);
         List<Receitas> re = receitasService.getReceitas(dr);
 
-       System.out.println(di.getTipoAlimentacao());
 
         String nome = userService.getNome(di.getID_Usuario());
             di.setNomeUsuario(nome);
@@ -236,7 +229,6 @@ public class Aplicacao {
 
      public static ModelAndView alimentos(Request request, Response response) {
 		HashMap<String, Object> model = new HashMap<>();
-        IngredientesDAO ingredientesDAO = new IngredientesDAO();
         List<Ingredientes> in = ingredientesService.exibir();
         model.put("ingrediente", in);
 
@@ -255,14 +247,12 @@ public class Aplicacao {
     public static ModelAndView receitas(Request request, Response response) {
 		HashMap<String, Object> model = new HashMap<>();
        
-        ReceitasDAO receitasDAO = new ReceitasDAO();
         List<Receitas> rc = receitasService.exibirAvaliadas();
         List<Receitas> rc2 = receitasService.exibirReceitas();
         model.put("receita", rc);
         model.put("todasReceitas", rc2);
 
 
-        IngredientesDAO ingredientesDAO = new IngredientesDAO();
         List<Ingredientes> in = ingredientesService.exibir();
         model.put("ingrediente", in);
 
